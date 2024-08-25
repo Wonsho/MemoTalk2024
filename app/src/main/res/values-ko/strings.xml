@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MemoTalk</string>
+    <string name="add_tab">탭 추가</string>
+    <string name="add">추가</string>
+    <string name="cancel">취소</string>
+    <string name="tab">탭</string>
+</resources>

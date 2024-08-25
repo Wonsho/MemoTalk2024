@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TabTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="android:textColorPrimary">@color/main_color</item>
+        <item name="android:textColorSecondary">#B1B1B1</item>
+        <item name="colorAccent">#A18CD1</item>
+    </style>
+
+    <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16dp</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
+
+</resources>
