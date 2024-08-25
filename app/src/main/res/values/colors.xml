@@ -7,6 +7,8 @@
     <color name="side_color2">#989898</color>
     <color name="main_icon_color">#7A7A7A</color>
     <color name="icon_back">#DADADA</color>
+    <color name="back">#00DADADA</color>
+
 
 
 </resources>
