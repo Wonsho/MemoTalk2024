@@ -11,9 +11,6 @@ public class MainService {
     private List<Tab> tabList;
     private final TabRepository repository;
 
-
-
-
     public MainService(Context context) {
         this.repository = DataBase.loadTabRepository(context);
     }

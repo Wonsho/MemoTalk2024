@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,51 +43,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        setOnClick();
-
         if (service == null) {
             this.service = new MainService(getApplicationContext());
         }
-
-
-        ViewPager2Adapter adapter = new ViewPager2Adapter(getSupportFragmentManager(), getLifecycle(), (ArrayList<Tab>) service.getAllTab());
-        ViewPager2 pager2 = binding.pager;
-        pager2.setAdapter(adapter);
-        TabLayout tabLayout = binding.tab;
-        new TabLayoutMediator(tabLayout, pager2, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(service.getTabByPosition(position).tabName);
-            }
-        }).attach();
-
-
-        for (int i=0; i<tabLayout.getTabCount(); i++) {
-            TooltipCompat.setTooltipText(Objects.requireNonNull(tabLayout.getTabAt(i)).view, null);
-        }
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int tabPosition = tab.getPosition(); // syntactic sugar
-                pager2.setCurrentItem(tabPosition, true);
-
-                for (int i=0; i<tabLayout.getTabCount(); i++) {
-                    TooltipCompat.setTooltipText(Objects.requireNonNull(tabLayout.getTabAt(i)).view, null);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        setOnClick();
+        setAdapter();
     }
 
     private void setOnClick() {
@@ -103,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Menu", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -111,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -126,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         String str = getString(R.string.tab);
         str += service.getLastTabId();
-
         binding.etText.setHint(str);
 
         binding.btnAddTab.setOnClickListener(new View.OnClickListener() {
@@ -153,16 +109,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-
         ViewPager2 pager2 = binding.pager;
-
         if (pager2.getAdapter() == null) {
             ViewPager2Adapter adapter = new ViewPager2Adapter(getSupportFragmentManager(), getLifecycle(), (ArrayList<Tab>) service.getAllTab());
             pager2.setAdapter(adapter);
         }
-
         pager2.getAdapter().notifyDataSetChanged();
-
         TabLayout tabLayout = binding.tab;
         new TabLayoutMediator(tabLayout, pager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
@@ -170,5 +122,32 @@ public class MainActivity extends AppCompatActivity {
                 tab.setText(service.getTabByPosition(position).tabName);
             }
         }).attach();
+
+        for (int i=0; i<tabLayout.getTabCount(); i++) {
+            TooltipCompat.setTooltipText(Objects.requireNonNull(tabLayout.getTabAt(i)).view, null);
+        }
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int tabPosition = tab.getPosition(); // syntactic sugar
+                pager2.setCurrentItem(tabPosition, true);
+
+                for (int i=0; i<tabLayout.getTabCount(); i++) {
+                    TooltipCompat.setTooltipText(Objects.requireNonNull(tabLayout.getTabAt(i)).view, null);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 }
