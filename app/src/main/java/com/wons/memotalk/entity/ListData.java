@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class ListData {
     @PrimaryKey(autoGenerate = true)
     public long id;
-
     public String iconName;
     public String title;
 

@@ -5,6 +5,12 @@
     <string name="add" translatable="false">Add</string>
     <string name="cancel" translatable="false">Cancel</string>
     <string name="tab" translatable="false">Tab</string>
+    <string name="del_list">Delete list</string>
+    <string name="del_tab">Delete tab</string>
+    <string name="modi_tabName">Rename tab</string>
+    <string name="select_all">Select all</string>
+    <string name="del_notion">Please select the items to delete</string>
+    <string name="del">Delete</string>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

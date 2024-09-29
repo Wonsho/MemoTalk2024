@@ -5,4 +5,10 @@
     <string name="add">추가</string>
     <string name="cancel">취소</string>
     <string name="tab">탭</string>
+    <string name="del_list">리스트 삭제</string>
+    <string name="del_tab">탭 삭제</string>
+    <string name= "modi_tabName">탭 이름변경</string>
+    <string name="del">삭제</string>
+    <string name="select_all">전체 선택</string>
+    <string name="del_notion">삭제할 리스트를 선택해주세요.</string>
 </resources>
