@@ -11,4 +11,8 @@
     <string name="del">삭제</string>
     <string name="select_all">전체 선택</string>
     <string name="del_notion">삭제할 리스트를 선택해주세요.</string>
+    <string name="default_memo_name">메모</string>
+    <string name="more"><u>더보기</u></string>
+    <string name="click_url"><u>클릭하면 해당 URL로 이동합니다.</u></string>
+
 </resources>

@@ -11,6 +11,10 @@
     <string name="select_all">Select all</string>
     <string name="del_notion">Please select the items to delete</string>
     <string name="del">Delete</string>
+    <string name="default_memo_name">Memo</string>
+    <string name="more"><u>Read more</u></string>
+    <string name="click_url"><u>Click to navigate to the URL.</u></string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
