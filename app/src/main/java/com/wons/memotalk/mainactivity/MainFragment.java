@@ -1,9 +1,7 @@
 package com.wons.memotalk.mainactivity;
 
-import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +36,8 @@ public class MainFragment extends Fragment {
         binding.btnAddList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo 리스트 추가
+                //todo 리스트 추가 -> 메모방으로 바로 넘겨준다음 이름정하게 만듦
+                Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
             }
         });
 
