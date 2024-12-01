@@ -17,6 +17,7 @@ import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMemoBinding;
 import com.wons.memotalk.entity.MemoRoom;
 import com.wons.memotalk.mainactivity.MainFragment;
+import com.wons.memotalk.memotalkactivity.adapter.MemoListAdapter;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoItemViewModel;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoViewModel;
 
@@ -68,6 +69,7 @@ public class MemoActivity extends AppCompatActivity {
     private void setListView() {
         if (binding.lvMemo.getAdapter() == null) {
             // adapter is null
+            binding.lvMemo.setAdapter(new MemoListAdapter());
         }
     }
 

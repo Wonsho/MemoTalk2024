@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey;
 public class MemoItem {
     @PrimaryKey(autoGenerate = true)
     public Long id;
-
     public Long memoRoomId;
     public Long valueCategory;
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")

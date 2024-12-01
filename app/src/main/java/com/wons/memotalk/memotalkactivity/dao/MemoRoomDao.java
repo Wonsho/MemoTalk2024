@@ -6,6 +6,7 @@ import androidx.room.Query;
 
 import com.wons.memotalk.entity.MemoItem;
 import com.wons.memotalk.entity.MemoRoom;
+import com.wons.memotalk.entity.memo_data.MemoText;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface MemoRoomDao {
     @Query("SELECT * FROM memoroom WHERE id = :id ORDER BY id ")
     List<MemoItem> getMemoItemByRoomId(Long id);
 
+    @Query("SELECT * FROM MemoText WHERE memoId = :id")
+    MemoText getMemoText(Long id);
     //해당 메모 아이템의 아이템 데이터 가져오기
 
 }
