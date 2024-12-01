@@ -1,4 +1,4 @@
-package com.wons.memotalk.mainactivity;
+package com.wons.memotalk.mainactivity.viewmodel;
 
 import android.content.Context;
 
@@ -9,15 +9,18 @@ import com.wons.memotalk.Database;
 import com.wons.memotalk.MainDatabase;
 import com.wons.memotalk.R;
 import com.wons.memotalk.entity.Tab;
+import com.wons.memotalk.entity.memo_list_model.MemoList;
 import com.wons.memotalk.mainactivity.livedata.AddTabState;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class MainViewModel extends ViewModel {
     private MutableLiveData<AddTabState> tabUiState;
     private MutableLiveData<ArrayList<Tab>> tabArrData;
     private MainDatabase db;
+    private MutableLiveData<HashMap<Long, ArrayList<MemoList>>> memoListMap;
 
     public long getLastTabId() {
         ArrayList<Tab> arr = tabArrData.getValue();
@@ -26,7 +29,7 @@ public class MainViewModel extends ViewModel {
 
         for (Tab t : arr) {
             if (max < t.id) {
-                max = (long)t.id;
+                max = (long) t.id;
             }
         }
         return max;
@@ -75,4 +78,5 @@ public class MainViewModel extends ViewModel {
     public ArrayList<Tab> getTabList() {
         return this.tabArrData.getValue();
     }
+
 }

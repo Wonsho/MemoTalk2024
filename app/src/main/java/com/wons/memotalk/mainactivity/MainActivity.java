@@ -22,11 +22,14 @@ import com.wons.memotalk.databinding.ActivityMainBinding;
 import com.wons.memotalk.databinding.DialogAddTitleBinding;
 import com.wons.memotalk.entity.Tab;
 import com.wons.memotalk.mainactivity.adapter.ViewPagerAdapter;
+import com.wons.memotalk.mainactivity.viewmodel.MainViewModel;
+import com.wons.memotalk.mainactivity.viewmodel.MemoListViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-    private MainViewModel viewModel;
+    private MainViewModel mainViewModel;
+    private MemoListViewModel memoListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,18 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        if (viewModel == null) {
-            viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-            viewModel.getDataFromDatabase(this);
+        if (mainViewModel == null) {
+            mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+            mainViewModel.getDataFromDatabase(this);
+        }
+
+        if (memoListViewModel == null) {
+            memoListViewModel = new ViewModelProvider(this).get(MemoListViewModel.class);
         }
         notifyViewPagerView();
         notifyTabView();
         setOnClick();
-        if (viewModel.getTabUiState()) {
+        if (mainViewModel.getTabUiState()) {
             showDialog();
         }
 
@@ -64,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog() {
         AlertDialog dialog;
-        viewModel.setTabUiState(true);
+        mainViewModel.setTabUiState(true);
         DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
         StringBuilder sb = new StringBuilder();
 
         sb.append(getApplicationContext().getString(R.string.tab));
-        sb.append(viewModel.getLastTabId() + 1);
+        sb.append(mainViewModel.getLastTabId() + 1);
         binding1.etText.setHint(sb.toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setView(binding1.getRoot())
@@ -80,21 +87,21 @@ public class MainActivity extends AppCompatActivity {
         binding1.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setTabUiState(false);
+                mainViewModel.setTabUiState(false);
                 dialog.dismiss();
             }
         });
         binding1.btnAddTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.setTabUiState(false);
+                mainViewModel.setTabUiState(false);
                 String tName = binding1.etText.getText().toString().trim();
                 if (tName.isEmpty()) {
                     tName = binding1.etText.getHint().toString().trim();
                 }
                 Tab t = new Tab();
                 t.tabName = tName;
-                viewModel.insertTabData(t);
+                mainViewModel.insertTabData(t);
                 dialog.dismiss();
                 reSetView();
             }
@@ -103,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void reSetView() {
-        viewModel.getDataFromDatabase(this);
+        mainViewModel.getDataFromDatabase(this);
         notifyViewPagerView();
         notifyTabView();
     }
@@ -111,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
     private void notifyViewPagerView() {
         if (binding.pager.getAdapter() == null) {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
-            adapter.setItem(viewModel.getTabList());
+            adapter.setItem(mainViewModel.getTabList());
             ViewPager2 viewPager2 = binding.pager;
             viewPager2.setAdapter(adapter);
         }
-        ((ViewPagerAdapter) binding.pager.getAdapter()).setItem(viewModel.getTabList());
+        ((ViewPagerAdapter) binding.pager.getAdapter()).setItem(mainViewModel.getTabList());
         binding.pager.getAdapter().notifyDataSetChanged();
     }
 
@@ -124,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, binding.pager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(viewModel.getTabList().get(position).tabName);
+                tab.setText(mainViewModel.getTabList().get(position).tabName);
             }
         }).attach();
-
     }
 }

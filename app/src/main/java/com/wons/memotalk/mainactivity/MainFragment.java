@@ -1,5 +1,6 @@
 package com.wons.memotalk.mainactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -15,10 +16,13 @@ import androidx.fragment.app.Fragment;
 
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.FragmentMainBinding;
+import com.wons.memotalk.memotalkactivity.MemoActivity;
 
 public class MainFragment extends Fragment {
     private long id;
     private FragmentMainBinding binding;
+    public static final String FRAGMENTS_ID = "fragmentsId";
+    public static final String MEMO_ID = "memoId";
 
     public MainFragment(long position) {
         this.id = position;
@@ -31,13 +35,18 @@ public class MainFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+    //메모 추가 눌렀을경우
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.btnAddList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo 리스트 추가 -> 메모방으로 바로 넘겨준다음 이름정하게 만듦
-                Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+                //todo 리스트 추가 -> 메모방으로 바로 넘겨주고난다음 데이터가 들어갈시 데이터 베이스에 저장
+                Intent intent = new Intent(getActivity(), MemoActivity.class);
+                intent.putExtra(FRAGMENTS_ID, id);
+                intent.putExtra(MEMO_ID, -1L);
+                startActivity(intent);
             }
         });
 

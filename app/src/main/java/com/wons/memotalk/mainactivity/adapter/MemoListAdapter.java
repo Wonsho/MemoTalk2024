@@ -1,10 +1,15 @@
-package com.wons.memotalk.memotalkactivity.adapter;
+package com.wons.memotalk.mainactivity.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class TodoListAdapter extends BaseAdapter {
+import com.wons.memotalk.entity.memo_list_model.MemoList;
+
+import java.util.ArrayList;
+
+public class MemoListAdapter extends BaseAdapter {
+    private ArrayList<MemoList> list;
 
     @Override
     public int getCount() {

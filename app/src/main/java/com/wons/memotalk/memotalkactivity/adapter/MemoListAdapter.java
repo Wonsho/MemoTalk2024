@@ -4,15 +4,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.time.Instant;
-import java.util.ArrayList;
+import com.wons.memotalk.entity.MemoItem;
 
-public class MemoTalkAdapter extends BaseAdapter {
-//    private ArrayList<MemoData> memoList;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MemoListAdapter extends BaseAdapter {
+    private ArrayList<MemoItem> memoItems;
 
     @Override
     public int getCount() {
-        return 0;
+        return memoItems.size();
     }
 
     @Override
@@ -22,11 +24,15 @@ public class MemoTalkAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 0;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         return null;
+    }
+
+    public void setMemoItems(List<MemoItem> items) {
+        this.memoItems = (ArrayList<MemoItem>) items;
     }
 }

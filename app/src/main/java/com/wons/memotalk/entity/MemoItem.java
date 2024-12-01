@@ -1,18 +1,18 @@
 package com.wons.memotalk.entity;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.time.Instant;
-
 @Entity
-public class MemoRoom {
+public class MemoItem {
     @PrimaryKey(autoGenerate = true)
     public Long id;
-    public Long tabId;
+
+    public Long memoRoomId;
+    public Long valueCategory;
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
-    public String time;
-    public String title;
+    public String date;
+    private Boolean check;
+    private Boolean exclamation;
 }

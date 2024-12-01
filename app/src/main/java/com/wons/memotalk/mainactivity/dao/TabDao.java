@@ -12,13 +12,10 @@ import java.util.List;
 
 @Dao
 public interface TabDao {
-
     @Query("SELECT * FROM TAB")
     List<Tab> getAll();
-
     @Insert
     void insert(Tab tab);
-
     @Delete
     void delete(Tab tab);
 }
