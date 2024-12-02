@@ -10,8 +10,7 @@ public class MemoItem {
     public Long id;
     public Long memoRoomId;
     public Integer valueCategory;
-    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
-    public String date;
-    private Boolean check;
-    private Boolean exclamation;
+    public Long date;
+    public Boolean check;
+    public Boolean exclamation;
 }

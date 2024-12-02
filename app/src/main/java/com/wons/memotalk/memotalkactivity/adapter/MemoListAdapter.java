@@ -16,8 +16,11 @@ import com.wons.memotalk.databinding.MemoTodoBinding;
 import com.wons.memotalk.databinding.MemoUrlBinding;
 import com.wons.memotalk.entity.memo_data.MemoData;
 import com.wons.memotalk.entity.memo_data.MemoDataType;
+import com.wons.memotalk.entity.memo_data.MemoText;
 import com.wons.memotalk.entity.memo_data.MemoTodo;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,10 +103,7 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-
-
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(/*R.layout.text_row_item*/0, viewGroup, false);
+        View view = null;
         switch (MemoDataType.fromTypeCode(viewType)) {
             case TEXT: {
                 //todo 1
@@ -141,6 +141,22 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         switch (MemoDataType.fromTypeCode(viewHolder.getItemViewType())) {
             case TEXT: {
+                MemoTextBinding binding = ((MemoTextViewHolder) viewHolder).binding;
+                MemoData data = itemList.get(position);
+                MemoText memoText = (MemoText) data.itemData;
+                binding.tvMemo.setText(memoText.value);
+
+                if (data.getCheck()) {
+                    binding.markCheck.setVisibility(View.VISIBLE);
+                } else {
+                    binding.markCheck.setVisibility(View.GONE);
+                }
+
+                if (data.getExclamation()) {
+                    binding.markNotion.setVisibility(View.VISIBLE);
+                } else {
+                    binding.markNotion.setVisibility(View.GONE);
+                }
 
                 break;
             }

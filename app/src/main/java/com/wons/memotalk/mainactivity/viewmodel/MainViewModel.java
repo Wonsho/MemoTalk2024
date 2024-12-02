@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel;
 import com.wons.memotalk.Database;
 import com.wons.memotalk.MainDatabase;
 import com.wons.memotalk.R;
+import com.wons.memotalk.entity.MemoItem;
 import com.wons.memotalk.entity.Tab;
-import com.wons.memotalk.entity.memo_list_model.MemoList;
 import com.wons.memotalk.mainactivity.livedata.AddTabState;
 
 import java.util.ArrayList;
@@ -20,7 +20,6 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<AddTabState> tabUiState;
     private MutableLiveData<ArrayList<Tab>> tabArrData;
     private MainDatabase db;
-    private MutableLiveData<HashMap<Long, ArrayList<MemoList>>> memoListMap;
 
     public long getLastTabId() {
         ArrayList<Tab> arr = tabArrData.getValue();
@@ -55,6 +54,11 @@ public class MainViewModel extends ViewModel {
 
 
     public void getDataFromDatabase(Context context) {
+
+        MemoItem memoItem = new MemoItem();
+        memoItem.check = true;
+        memoItem.valueCategory = 5;
+
         if (this.db == null) {
             this.db = Database.getDatabase(context);
         }

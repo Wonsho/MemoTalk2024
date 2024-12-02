@@ -6,7 +6,7 @@ public class MemoData {
     private Long id;
     public Integer category;
     public Object itemData;
-    public String date;
+    public Long date;
     private Boolean check;
     private Boolean exclamation;
 
@@ -22,7 +22,7 @@ public class MemoData {
         return this.itemData;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return this.date;
     }
 
@@ -60,7 +60,7 @@ public class MemoData {
             return this;
         }
 
-        public MemoDataBuilder setDate(String date) {
+        public MemoDataBuilder setDate(Long date) {
             setDataIfNull();
             memoData.date = date;
             return this;

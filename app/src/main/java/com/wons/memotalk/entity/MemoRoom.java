@@ -12,7 +12,6 @@ public class MemoRoom {
     @PrimaryKey(autoGenerate = true)
     public Long id;
     public Long tabId;
-    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
-    public String time;
+    public Long time;
     public String title;
 }

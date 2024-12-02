@@ -2,6 +2,7 @@ package com.wons.memotalk.memotalkactivity.dao;
 
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.wons.memotalk.entity.MemoItem;
@@ -24,5 +25,8 @@ public interface MemoRoomDao {
     @Query("SELECT * FROM MemoText WHERE memoId = :id")
     MemoText getMemoText(Long id);
     //해당 메모 아이템의 아이템 데이터 가져오기
+
+    @Insert
+    void save(MemoItem memoItem);
 
 }
