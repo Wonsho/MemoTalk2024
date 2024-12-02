@@ -66,9 +66,11 @@ public class MemoActivity extends AppCompatActivity {
         binding.tvTitle.setText(title.trim());
     }
 
+
+
+
     private void setListView() {
         if (binding.lvMemo.getAdapter() == null) {
-            // adapter is null
             binding.lvMemo.setAdapter(new MemoListAdapter());
         }
     }

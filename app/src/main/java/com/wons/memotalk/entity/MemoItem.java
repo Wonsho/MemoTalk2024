@@ -9,7 +9,7 @@ public class MemoItem {
     @PrimaryKey(autoGenerate = true)
     public Long id;
     public Long memoRoomId;
-    public Long valueCategory;
+    public Integer valueCategory;
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
     public String date;
     private Boolean check;
