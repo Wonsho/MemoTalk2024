@@ -1,6 +1,7 @@
 package com.wons.memotalk.memotalkactivity;
 
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,11 +16,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMemoBinding;
+import com.wons.memotalk.entity.MemoItem;
 import com.wons.memotalk.entity.MemoRoom;
+import com.wons.memotalk.entity.memo_data.MemoData;
+import com.wons.memotalk.entity.memo_data.MemoDataType;
+import com.wons.memotalk.entity.memo_data.MemoText;
 import com.wons.memotalk.mainactivity.MainFragment;
 import com.wons.memotalk.memotalkactivity.adapter.MemoListAdapter;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoItemViewModel;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoViewModel;
+import com.wons.memotalk.util.DateUtil;
 
 public class MemoActivity extends AppCompatActivity {
     private MemoViewModel memoViewModel;
@@ -40,12 +46,13 @@ public class MemoActivity extends AppCompatActivity {
 
         if (this.memoViewModel == null) {
             memoViewModel = new ViewModelProvider(this).get(MemoViewModel.class);
-            getDataFromIntent();
         }
 
         if (this.memoItemViewModel == null) {
             memoItemViewModel = new ViewModelProvider(this).get(MemoItemViewModel.class);
+            getDataFromIntent();
         }
+        setListView();
         setOnClick();
     }
 
@@ -67,8 +74,6 @@ public class MemoActivity extends AppCompatActivity {
     }
 
 
-
-
     private void setListView() {
         if (binding.lvMemo.getAdapter() == null) {
             binding.lvMemo.setAdapter(new MemoListAdapter());
@@ -79,10 +84,17 @@ public class MemoActivity extends AppCompatActivity {
 
         binding.btnSend.setOnClickListener((view) -> {
             if (!binding.etText.getText().toString().trim().isEmpty()) {
-                //전송
+                if (this.memoViewModel.getMemoRoomId() == -1L) {
+                    //데이터가 처음일경우
+                    //todo 메모룸 저장한다음 아이디값을 받아온다음
+                    // 메모아이템 뷰모델에 전달
+                    this.memoViewModel.saveMemoRoom(this);
+                    this.memoItemViewModel.saveTextMemo(this, binding.etText.getText().toString().trim(), memoViewModel.getMemoRoomId());
+                }
+                //타입에 맞춰서 저장
+                binding.etText.setText("");
             }
         });
-
 
         //editText 누를때 유틸 뷰 사라지게 만듦
         binding.etText.setOnClickListener((view) -> {

@@ -141,7 +141,7 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         switch (MemoDataType.fromTypeCode(viewHolder.getItemViewType())) {
             case TEXT: {
-                MemoTextBinding binding = ((MemoTextViewHolder) viewHolder).binding;
+                MemoTextBinding binding = ((MemoTextViewHolder) viewHolder).getBinding();
                 MemoData data = itemList.get(position);
                 MemoText memoText = (MemoText) data.itemData;
                 binding.tvMemo.setText(memoText.value);

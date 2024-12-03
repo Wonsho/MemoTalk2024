@@ -9,38 +9,54 @@ import androidx.lifecycle.ViewModel;
 import com.wons.memotalk.Database;
 import com.wons.memotalk.R;
 import com.wons.memotalk.entity.MemoRoom;
+import com.wons.memotalk.util.DateUtil;
 
 public class MemoViewModel extends ViewModel {
-    private MutableLiveData<MemoData> memoData;
+    private MutableLiveData<MemoRoomInfo> memoRoomInfo;
 
-    class MemoData {
+    class MemoRoomInfo {
         long id;
         String title;
         long fragmentsId;
     }
 
     public void setMemoDataFromDataBase(Context context, Long fragmentsId, Long memoId) {
-        if (this.memoData == null) {
-            this.memoData = new MutableLiveData<>();
-            memoData.setValue(new MemoData());
+        if (this.memoRoomInfo == null) {
+            this.memoRoomInfo = new MutableLiveData<>();
+            memoRoomInfo.setValue(new MemoRoomInfo());
         }
 
         MemoRoom memoRoom = Database.getDatabase(context).memoRoomDao().getMemoRoom(memoId);
         if (memoRoom == null) {
             Long lastId = Database.getDatabase(context).memoRoomDao().getMemoRoomLastPk();
-
             Log.i("MemoViewModel", "Memo data is null");
-            this.memoData.getValue().fragmentsId = fragmentsId;
+            this.memoRoomInfo.getValue().fragmentsId = fragmentsId;
             String title = context.getString(R.string.default_memo_name);
+
             if (lastId != null) {
                 title += " " + lastId;
             }
-            this.memoData.getValue().title = title;
+            this.memoRoomInfo.getValue().id = memoId;
+            this.memoRoomInfo.getValue().title = title;
         }
     }
 
+    public void saveMemoRoom(Context context) {
+        MemoRoom memoRoom = new MemoRoom();
+        memoRoom.title = this.memoRoomInfo.getValue().title;
+        memoRoom.tabId = this.memoRoomInfo.getValue().fragmentsId;
+        memoRoom.time = DateUtil.getDate();
+        Long memoRoomId = Database.getDatabase(context).memoRoomDao().save(memoRoom);
+        Log.i("MemoViewmodel" ,"MemoRoom is saved memo room id is " + memoRoomId);
+        this.memoRoomInfo.getValue().id = memoRoomId;
+    }
+
+    public Long getMemoRoomId() {
+        return this.memoRoomInfo.getValue().id;
+    }
+
     public String getMemoTitle() {
-        return this.memoData.getValue().title;
+        return this.memoRoomInfo.getValue().title;
     }
 
 }

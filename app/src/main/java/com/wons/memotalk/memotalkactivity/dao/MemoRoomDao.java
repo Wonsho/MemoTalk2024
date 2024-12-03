@@ -27,6 +27,12 @@ public interface MemoRoomDao {
     //해당 메모 아이템의 아이템 데이터 가져오기
 
     @Insert
-    void save(MemoItem memoItem);
+    Long save(MemoItem memoItem);
+
+    @Insert
+    Long save(MemoRoom memoRoom);
+
+    @Insert
+    void save(MemoText memoText);
 
 }
