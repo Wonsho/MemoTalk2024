@@ -21,9 +21,12 @@ import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMainBinding;
 import com.wons.memotalk.databinding.DialogAddTitleBinding;
 import com.wons.memotalk.entity.Tab;
+import com.wons.memotalk.entity.memoList.MainMemoListModel;
 import com.wons.memotalk.mainactivity.adapter.ViewPagerAdapter;
 import com.wons.memotalk.mainactivity.viewmodel.MainViewModel;
 import com.wons.memotalk.mainactivity.viewmodel.MemoListViewModel;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel mainViewModel;
     private MemoListViewModel memoListViewModel;
 
+
+    public ArrayList<MainMemoListModel> getListModel(Long id) {
+        return memoListViewModel.getMemoListByTabId(this, id);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

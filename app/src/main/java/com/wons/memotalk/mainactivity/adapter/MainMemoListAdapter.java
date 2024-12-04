@@ -14,7 +14,7 @@ import com.wons.memotalk.util.DateUtil;
 import java.util.ArrayList;
 
 public class MainMemoListAdapter extends BaseAdapter {
-    private ArrayList<MainMemoListModel> list;
+    private ArrayList<MainMemoListModel> list = new ArrayList<>();
 
     @Override
     public int getCount() {
@@ -53,6 +53,9 @@ public class MainMemoListAdapter extends BaseAdapter {
     }
 
     public void setList(ArrayList<MainMemoListModel> list) {
+        if (list == null) {
+            return;
+        }
         this.list = list;
     }
 

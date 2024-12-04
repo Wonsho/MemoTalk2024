@@ -16,8 +16,12 @@ import androidx.fragment.app.Fragment;
 
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.FragmentMainBinding;
+import com.wons.memotalk.entity.memoList.MainMemoListModel;
 import com.wons.memotalk.mainactivity.adapter.MainMemoListAdapter;
+import com.wons.memotalk.mainactivity.viewmodel.MemoListViewModel;
 import com.wons.memotalk.memotalkactivity.MemoActivity;
+
+import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
     private long id;
@@ -37,7 +41,6 @@ public class MainFragment extends Fragment {
     }
 
 
-    //메모 추가 눌렀을경우
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setListView();
@@ -83,6 +86,9 @@ public class MainFragment extends Fragment {
         if (binding.lv.getAdapter() == null) {
             binding.lv.setAdapter(new MainMemoListAdapter());
         }
+        ArrayList<MainMemoListModel> models = ((MainActivity)getActivity()).getListModel(this.id);
+        ((MainMemoListAdapter)binding.lv.getAdapter()).setList(models);
+//        ((MainMemoListAdapter) binding.lv.getAdapter()).notifyDataSetChanged();
         // 메인액티비티 에서 데이터 가져옴
     }
 }
