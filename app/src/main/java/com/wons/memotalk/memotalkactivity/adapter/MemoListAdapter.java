@@ -4,11 +4,11 @@ package com.wons.memotalk.memotalkactivity.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.MemoFileBinding;
 import com.wons.memotalk.databinding.MemoImgBinding;
 import com.wons.memotalk.databinding.MemoTextBinding;
@@ -17,10 +17,8 @@ import com.wons.memotalk.databinding.MemoUrlBinding;
 import com.wons.memotalk.entity.memo_data.MemoData;
 import com.wons.memotalk.entity.memo_data.MemoDataType;
 import com.wons.memotalk.entity.memo_data.MemoText;
-import com.wons.memotalk.entity.memo_data.MemoTodo;
+import com.wons.memotalk.util.DateUtil;
 
-import java.sql.Date;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +106,7 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case TEXT: {
                 //todo 1
                 view = MemoTextBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false).getRoot();
-                break;
+                return new MemoTextViewHolder(view);
             }
             case URL: {
                 //todo 3
@@ -131,7 +129,7 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
             }
         }
-        return new MemoTextViewHolder(view);
+        return null;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -143,9 +141,9 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case TEXT: {
                 MemoTextBinding binding = ((MemoTextViewHolder) viewHolder).getBinding();
                 MemoData data = itemList.get(position);
-                MemoText memoText = (MemoText) data.itemData;
+                MemoText memoText = (MemoText) data.getItemData();
                 binding.tvMemo.setText(memoText.value);
-
+                binding.tvTime.setText(data.getDate(binding.getRoot().getContext().getString(R.string.memo_time_format)));
                 if (data.getCheck()) {
                     binding.markCheck.setVisibility(View.VISIBLE);
                 } else {
@@ -185,8 +183,8 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        int type = this.itemList.get(position).category;
-        return super.getItemViewType(type);
+        int type = this.itemList.get(position).getCategory();
+        return type;
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -196,6 +194,10 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setItemList(ArrayList<MemoData> list) {
+        if (this.itemList == null) {
+            this.itemList = new ArrayList<>();
+        }
         this.itemList = list;
+        notifyDataSetChanged();
     }
 }

@@ -12,6 +12,6 @@ public class MemoRoom {
     @PrimaryKey(autoGenerate = true)
     public Long id;
     public Long tabId;
-    public Long time;
+    public boolean fixed;
     public String title;
 }

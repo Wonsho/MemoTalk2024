@@ -5,9 +5,12 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.room.Transaction;
 
 import com.wons.memotalk.Database;
 import com.wons.memotalk.R;
+import com.wons.memotalk.entity.IconId;
+import com.wons.memotalk.entity.ListIcon;
 import com.wons.memotalk.entity.MemoRoom;
 import com.wons.memotalk.util.DateUtil;
 
@@ -41,12 +44,17 @@ public class MemoViewModel extends ViewModel {
         }
     }
 
+    @Transaction
     public void saveMemoRoom(Context context) {
         MemoRoom memoRoom = new MemoRoom();
         memoRoom.title = this.memoRoomInfo.getValue().title;
         memoRoom.tabId = this.memoRoomInfo.getValue().fragmentsId;
-        memoRoom.time = DateUtil.getDate();
+        memoRoom.fixed = false;
         Long memoRoomId = Database.getDatabase(context).memoRoomDao().save(memoRoom);
+        ListIcon icon = new ListIcon();
+        icon.listId = memoRoomId;
+        icon.iconId = IconId.DEFAULT_ICON.getId();
+        Database.getDatabase(context).memoRoomDao().save(icon);
         Log.i("MemoViewmodel" ,"MemoRoom is saved memo room id is " + memoRoomId);
         this.memoRoomInfo.getValue().id = memoRoomId;
     }

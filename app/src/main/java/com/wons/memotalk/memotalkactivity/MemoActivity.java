@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMemoBinding;
@@ -26,6 +27,8 @@ import com.wons.memotalk.memotalkactivity.adapter.MemoListAdapter;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoItemViewModel;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoViewModel;
 import com.wons.memotalk.util.DateUtil;
+
+import java.util.ArrayList;
 
 public class MemoActivity extends AppCompatActivity {
     private MemoViewModel memoViewModel;
@@ -77,8 +80,23 @@ public class MemoActivity extends AppCompatActivity {
     private void setListView() {
         if (binding.lvMemo.getAdapter() == null) {
             binding.lvMemo.setAdapter(new MemoListAdapter());
+            binding.lvMemo.setLayoutManager(new LinearLayoutManager(this));
         }
+        MemoListAdapter adapter = ((MemoListAdapter) binding.lvMemo.getAdapter());
+        //todo 이부분 adapter 에 아이템 추가
+        adapter.setItemList(memoItemViewModel.getMemoData(this, memoViewModel.getMemoRoomId()));
+        adapter.notifyItemRangeInserted(0, databaseList().length);
     }
+
+    private void addDataToListView() {
+        //todo 리스트 뷰에 insert data\
+        binding.lvMemo.getAdapter().notifyDataSetChanged();
+    }
+
+    private void deleteDataToListView() {
+        //todo 리스트 뷰에 delete Data
+    }
+
 
     private void setOnClick() {
 
@@ -89,9 +107,10 @@ public class MemoActivity extends AppCompatActivity {
                     //todo 메모룸 저장한다음 아이디값을 받아온다음
                     // 메모아이템 뷰모델에 전달
                     this.memoViewModel.saveMemoRoom(this);
-                    this.memoItemViewModel.saveTextMemo(this, binding.etText.getText().toString().trim(), memoViewModel.getMemoRoomId());
                 }
-                //타입에 맞춰서 저장
+
+                this.memoItemViewModel.saveTextMemo(this, binding.etText.getText().toString().trim(), memoViewModel.getMemoRoomId());
+                addDataToListView();
                 binding.etText.setText("");
             }
         });

@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.wons.memotalk.entity.ListIcon;
 import com.wons.memotalk.entity.MemoItem;
 import com.wons.memotalk.entity.MemoRoom;
 import com.wons.memotalk.entity.memo_data.MemoText;
@@ -34,5 +35,8 @@ public interface MemoRoomDao {
 
     @Insert
     void save(MemoText memoText);
+
+    @Insert
+    void save(ListIcon listIcon);
 
 }

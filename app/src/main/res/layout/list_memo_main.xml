@@ -16,11 +16,12 @@
         android:layout_height="50dp">
 
         <ImageView
+            android:id="@+id/img"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/bookmark2"
+            android:src="@drawable/bookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -35,18 +36,19 @@
         android:id="@+id/tv_subTitle"
         app:layout_constraintLeft_toRightOf="@id/icon"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="이건 제목 ."
+        android:text="이건 asdasdasdasdasdasdasdasdasdasdasd ."
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/tv_dataInfo"
         android:layout_marginRight="5dp"
         app:layout_constraintRight_toLeftOf="@id/tv_time"
         android:layout_marginLeft="10dp"
         android:textColor="@color/side_color"
         android:textSize="20dp"
         android:fontFamily="@font/pretendard_medium"
-        android:text="이건 부제목 ."
+        android:text="이건 asdasdasdasdasdasdasasdasdasdasasd ."
         app:layout_constraintLeft_toRightOf="@id/icon"
         app:layout_constraintTop_toBottomOf="@id/tv_subTitle"
         android:layout_width="0dp"
@@ -61,13 +63,13 @@
         android:text="12:12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
     <ImageView
+        android:id="@+id/fix"
         android:layout_marginTop="10dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_time"
-        android:src="@drawable/bookmark"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
+        android:src="@drawable/keep"
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,5 +15,11 @@
     <string name="more"><u>더보기</u></string>
     <string name="click_url"><u>클릭하면 해당 URL로 이동합니다.</u></string>
     <string name="error">오류가 있습니다.</string>
+    <string name="memo_time_format">a h:mm</string>
+    <string name="memo_list_time_format">a h:mm</string> <!--아직 보류중...-->
+
+    <string name="file_img">[ 사진 ]</string>
+    <string name="file_url">[ 링크 ]</string>
+    <string name="file_todo">[ 할것 목록 : * ]</string><!--*표시는 리플레이스-->
 
 </resources>

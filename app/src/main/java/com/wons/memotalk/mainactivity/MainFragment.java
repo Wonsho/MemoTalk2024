@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.FragmentMainBinding;
+import com.wons.memotalk.mainactivity.adapter.MainMemoListAdapter;
 import com.wons.memotalk.memotalkactivity.MemoActivity;
 
 public class MainFragment extends Fragment {
@@ -39,6 +40,8 @@ public class MainFragment extends Fragment {
     //메모 추가 눌렀을경우
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setListView();
+
         binding.btnAddList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,5 +77,12 @@ public class MainFragment extends Fragment {
                 menu.show();
             }
         });
+    }
+
+    private void setListView() {
+        if (binding.lv.getAdapter() == null) {
+            binding.lv.setAdapter(new MainMemoListAdapter());
+        }
+        // 메인액티비티 에서 데이터 가져옴
     }
 }

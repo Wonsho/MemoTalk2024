@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class ListIcon {
-    @PrimaryKey(autoGenerate = true)
-    public Long id;
+    @PrimaryKey
     public Long listId;
-    public String iconPath;
+    public Integer iconId;
 }
