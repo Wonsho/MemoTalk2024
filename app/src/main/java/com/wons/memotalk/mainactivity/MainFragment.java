@@ -45,41 +45,43 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setListView();
 
-        binding.btnAddList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //todo 리스트 추가 -> 메모방으로 바로 넘겨주고난다음 데이터가 들어갈시 데이터 베이스에 저장
-                Intent intent = new Intent(getActivity(), MemoActivity.class);
-                intent.putExtra(FRAGMENTS_ID, id);
-                intent.putExtra(MEMO_ID, -1L);
-                startActivity(intent);
-            }
-        });
+//        binding.btnAddList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //todo 리스트 추가 -> 메모방으로 바로 넘겨주고난다음 데이터가 들어갈시 데이터 베이스에 저장
+//                Intent intent = new Intent(getActivity(), MemoActivity.class);
+//                intent.putExtra(FRAGMENTS_ID, id);
+//                intent.putExtra(MEMO_ID, -1L);
+//                startActivity(intent);
+//            }
+//        });
 
-        binding.btnDeleteList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                ContextThemeWrapper wrapper = new ContextThemeWrapper(getContext(), R.style.BasePopupMenu);
-                PopupMenu menu = new PopupMenu(wrapper, view);
-                getActivity().getMenuInflater().inflate(R.menu.popup, menu.getMenu());
-
-                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        if (menuItem.getItemId() == R.id.btn_d_list) {
-                            Toast.makeText(getContext(), "LIST", Toast.LENGTH_SHORT).show();
-                            //todo 편집 창 이동
-                        } else {
-                            Toast.makeText(getContext(), "TAB", Toast.LENGTH_SHORT).show();
-                            //todo 안내 다이로그 띄우기 (현재 탭의 모든 데이터가 삭제됩니다.)
-                        }
-                        return false;
-                    }
-                });
-                menu.show();
-            }
-        });
+        //todo 메인으로 옮기기
+//        binding.btnDeleteList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                ContextThemeWrapper wrapper = new ContextThemeWrapper(getContext(), R.style.BasePopupMenu);
+//                PopupMenu menu = new PopupMenu(wrapper, view);
+//                getActivity().getMenuInflater().inflate(R.menu.popup, menu.getMenu());
+//
+//                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem menuItem) {
+//                        if (menuItem.getItemId() == R.id.btn_d_list) {
+//                            Toast.makeText(getContext(), "LIST", Toast.LENGTH_SHORT).show();
+//                            //todo 편집 창 이동
+//                        } else {
+//                            Toast.makeText(getContext(), "TAB", Toast.LENGTH_SHORT).show();
+//                            //todo 안내 다이로그 띄우기 (현재 탭의 모든 데이터가 삭제됩니다.)
+//                        }
+//                        return false;
+//                    }
+//                });
+//                menu.show();
+//            }
+//        });
     }
 
     private void setListView() {

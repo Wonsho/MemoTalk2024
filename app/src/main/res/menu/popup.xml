@@ -1,9 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/btn_a_tab"
+        android:title="@string/add_tab" />
+
+    <item
+        android:id="@+id/btn_a_list"
+        android:title="@string/add_list" />
+
+    <item
+        android:id="@+id/btn_c_list"
+        android:title="@string/change_list" />
+    <item
+        android:id="@+id/btn_c_tab"
+        android:title="@string/change_tab" />
+
     <item
         android:id="@+id/btn_d_list"
         android:title="@string/del_list" />
     <item
         android:id="@+id/btn_d_tab"
         android:title="@string/del_tab" />
+
+
+
+
 </menu>

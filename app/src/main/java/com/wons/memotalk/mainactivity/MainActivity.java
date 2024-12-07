@@ -3,12 +3,18 @@ package com.wons.memotalk.mainactivity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<MainMemoListModel> getListModel(Long id) {
         return memoListViewModel.getMemoListByTabId(this, id);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +78,102 @@ public class MainActivity extends AppCompatActivity {
         binding.btnAddTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                //todo 팝업 메뉴 띄우기
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.popup, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+
+                        if (id == R.id.btn_d_list) {
+                            //todo 리스트 삭제
+                        }
+
+                        if (id == R.id.btn_d_tab) {
+                            //todo 탭 삭제
+
+                        }
+
+                        if (id == R.id.btn_a_tab) {
+                            showDialog();
+                        }
+
+                        if (id == R.id.btn_a_list) {
+                            //todo add List
+                        }
+
+                        if (id == R.id.btn_c_list) {
+                            //todo reName list
+                        }
+
+                        if (id == R.id.btn_c_tab) {
+                            //todo reName tab
+                            changeThisTabName();
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
+    }
+
+
+    //todo 나중에 추가 할 기능
+    private void deleteTabData() {
+        int currentPage = binding.pager.getCurrentItem();
+        Tab tab = ((ViewPagerAdapter) binding.pager.getAdapter()).getTabById(currentPage);
+
+        if (binding.pager.getAdapter().getItemCount() == 1) {
+            Toast.makeText(this, getString(R.string.tab_delete_notion), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+    }
+
+    private void changeThisTabName() {
+        int currentPage = binding.pager.getCurrentItem();
+        Tab tab = ((ViewPagerAdapter) binding.pager.getAdapter()).getTabById(currentPage);
+
+        Long id = tab.id;
+        String title = tab.tabName;
+
+
+        reNameTab(title, id);
+        //todo 다이로그 띄우기
+    }
+
+    private void reNameTab(String oldTitle, Long id) {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
+        builder.setView(binding1.getRoot());
+        dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        binding1.etText.setHint(oldTitle);
+        binding1.title.setText(getString(R.string.change_tab));
+        binding1.btnCancel.setOnClickListener((view) -> {
+            //todo 취소
+            dialog.dismiss();
+        });
+
+        binding1.btnAddTab.setText(getString(R.string.rename));
+        binding1.btnAddTab.setOnClickListener((view) -> {
+            //todo 변경
+            if (!binding1.etText.getText().toString().trim().isEmpty()) {
+                mainViewModel.changeTabName(getApplicationContext(), id, binding1.etText.getText().toString().trim());
+            }
+
+            notifyTabView();
+            dialog.dismiss();
+
+        });
+        dialog.show();
     }
 
     private void showDialog() {
@@ -82,13 +182,14 @@ public class MainActivity extends AppCompatActivity {
         DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
         StringBuilder sb = new StringBuilder();
 
+
         sb.append(getApplicationContext().getString(R.string.tab));
         sb.append(mainViewModel.getLastTabId() + 1);
         binding1.etText.setHint(sb.toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setView(binding1.getRoot())
                 .setCancelable(false);
-        dialog =  builder.create();
+        dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         binding1.btnCancel.setOnClickListener(new View.OnClickListener() {

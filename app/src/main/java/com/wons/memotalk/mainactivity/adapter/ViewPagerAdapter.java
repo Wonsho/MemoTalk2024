@@ -20,6 +20,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         super(fragmentManager, lifecycle);
     }
 
+    public Tab getTabById(int id) {
+        return this.items.get(id);
+    }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {

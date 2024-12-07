@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MemoTalk</string>
-    <string name="add_tab">탭 추가</string>
     <string name="add">추가</string>
     <string name="cancel">취소</string>
     <string name="tab">탭</string>
-    <string name="del_list">리스트 삭제</string>
-    <string name="del_tab">탭 삭제</string>
     <string name= "modi_tabName">탭 이름변경</string>
     <string name="del">삭제</string>
     <string name="select_all">전체 선택</string>
@@ -17,6 +14,17 @@
     <string name="error">오류가 있습니다.</string>
     <string name="memo_time_format">a h:mm</string>
     <string name="memo_list_time_format">a h:mm</string> <!--아직 보류중...-->
+
+    <string name="add_list">메모 추가</string>
+    <string name="add_tab">탭 추가</string>
+    <string name="change_list">메모 이름 변경</string>
+    <string name="change_tab">탭 이름 변경</string>
+    <string name="del_list">메모 삭제</string>
+    <string name="del_tab">탭 삭제</string>
+
+    <string name="rename">변경</string>
+
+    <string name="tab_delete_notion">모든 탭을 삭제할 수 없습니다.</string>
 
     <string name="file_img">[ 사진 ]</string>
     <string name="file_url">[ 링크 ]</string>

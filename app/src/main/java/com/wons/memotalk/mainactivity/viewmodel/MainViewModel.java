@@ -1,9 +1,11 @@
 package com.wons.memotalk.mainactivity.viewmodel;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.room.Transaction;
 
 import com.wons.memotalk.Database;
 import com.wons.memotalk.MainDatabase;
@@ -83,4 +85,20 @@ public class MainViewModel extends ViewModel {
         return this.tabArrData.getValue();
     }
 
+    public void changeTabName(Context context, Long id, String title) {
+        ArrayList<Tab> arr = this.tabArrData.getValue();
+
+        for (Tab tab : arr) {
+            if (tab.id == id) {
+                //todo 현재 탭변경
+                tab.tabName = title;
+                Database.getDatabase(context).tabDao().update(tab);
+            }
+        }
+    }
+
+    @Transaction
+    public void deleteTab(Context context, Tab tab) {
+
+    }
 }
