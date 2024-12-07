@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface MainMemoListDao {
 
-    @Query("SELECT * FROM MemoRoom WHERE id = :id")
+    @Query("SELECT * FROM MemoRoom WHERE tabId = :id")
     List<MainMemoList> getAll(Long id);
 
     //    @Query("SELECT id FROM memoroom ORDER BY id DESC LIMIT 1")

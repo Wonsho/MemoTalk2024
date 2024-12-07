@@ -22,6 +22,15 @@
     <string name="del_list">메모 삭제</string>
     <string name="del_tab">탭 삭제</string>
 
+    <string name="sort_cut">바로가기 만들기</string>
+    <string name="memo_rename">이름 변경</string>
+    <string name="mmemo_delete">메모 삭제</string>
+    <string name="switch_tab">탭 변경</string>
+    <string name="fix_top">상단 고정/해체</string>
+    <string name="memo_lock">메모 잠그기/해체</string>
+
+
+
     <string name="rename">변경</string>
 
     <string name="tab_delete_notion">모든 탭을 삭제할 수 없습니다.</string>

@@ -25,6 +25,14 @@
 
     <string name="tab_delete_notion">Cannot delete all tabs.</string>
 
+    <string name="sort_cut">Create a shortcut</string>
+    <string name="memo_rename">Rename</string>
+    <string name="mmemo_delete">Delete</string>
+    <string name="switch_tab">Move to tab</string>
+    <string name="fix_top">Fix/Unfix to top</string>
+    <string name="memo_lock">Lock/Unlock note</string>
+
+
 
     <string name="file_img">[ Image ]</string>
     <string name="file_url">[ URL ]</string>

@@ -1,6 +1,7 @@
 package com.wons.memotalk.mainactivity.adapter;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private ArrayList<Tab> items;
+    private ArrayList<MainFragment> mainFragments = new ArrayList<>();
+
 
     public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
@@ -28,8 +31,12 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         Log.d("createFragment", "pass : " + position);
+        mainFragments.add(new MainFragment(items.get(position).id));
+        return mainFragments.get(position);
+    }
 
-        return new MainFragment(items.get(position).id);
+    public MainFragment getFragments(int position) {
+        return this.mainFragments.get(position);
     }
 
     @Override

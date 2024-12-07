@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (id == R.id.btn_d_tab) {
                             //todo 탭 삭제
-
+                            deleteTabData();
                         }
 
                         if (id == R.id.btn_a_tab) {
@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (id == R.id.btn_a_list) {
                             //todo add List
+                            MainFragment fragment = ((ViewPagerAdapter) binding.pager.getAdapter()).getFragments(binding.pager.getCurrentItem());
+                            fragment.addList();
                         }
 
                         if (id == R.id.btn_c_list) {
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
     //todo 나중에 추가 할 기능
     private void deleteTabData() {
+        Toast.makeText(this, "기능 추가 전", Toast.LENGTH_LONG).show();
         int currentPage = binding.pager.getCurrentItem();
         Tab tab = ((ViewPagerAdapter) binding.pager.getAdapter()).getTabById(currentPage);
 
@@ -137,11 +140,8 @@ public class MainActivity extends AppCompatActivity {
     private void changeThisTabName() {
         int currentPage = binding.pager.getCurrentItem();
         Tab tab = ((ViewPagerAdapter) binding.pager.getAdapter()).getTabById(currentPage);
-
         Long id = tab.id;
         String title = tab.tabName;
-
-
         reNameTab(title, id);
         //todo 다이로그 띄우기
     }

@@ -70,6 +70,8 @@ public class MemoActivity extends AppCompatActivity {
         setView();
     }
 
+
+    //todo 타이틀 is null
     private void setView() {
         String title = this.memoViewModel.getMemoTitle();
         Log.i("MemoActivity", "memo Title is " + title);

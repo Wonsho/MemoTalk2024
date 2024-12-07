@@ -23,7 +23,5 @@ public interface TabDao {
     @Update
     void update(Tab tab);
 
-    @Insert
-    void getMemoRoomById(Long tabId);
 
 }
