@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,6 +28,7 @@ import com.wons.memotalk.memotalkactivity.adapter.MemoListAdapter;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoItemViewModel;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoViewModel;
 import com.wons.memotalk.util.DateUtil;
+import com.wons.memotalk.util.SystemUtil;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,7 @@ public class MemoActivity extends AppCompatActivity {
     private MemoViewModel memoViewModel;
     private ActivityMemoBinding binding;
     private MemoItemViewModel memoItemViewModel;
+    private boolean backCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class MemoActivity extends AppCompatActivity {
         MemoListAdapter adapter = ((MemoListAdapter) binding.lvMemo.getAdapter());
         //todo 이부분 adapter 에 아이템 추가
         adapter.setItemList(memoItemViewModel.getMemoData(this, memoViewModel.getMemoRoomId()));
-        adapter.notifyItemRangeInserted(0, databaseList().length);
+        binding.lvMemo.getAdapter().notifyDataSetChanged();
     }
 
     private void addDataToListView() {
@@ -100,7 +103,32 @@ public class MemoActivity extends AppCompatActivity {
     }
 
 
+
     private void setOnClick() {
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (SystemUtil.checkExit()) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.go_back), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (SystemUtil.checkExit()) {
+                    finish();
+                } else {
+                    Toast.makeText(getApplication(), getString(R.string.go_back), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         binding.btnSend.setOnClickListener((view) -> {
             if (!binding.etText.getText().toString().trim().isEmpty()) {

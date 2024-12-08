@@ -77,6 +77,7 @@ public class MainFragment extends Fragment {
                 intent.putExtra(FRAGMENTS_ID, tabId);
                 intent.putExtra(MEMO_ID, memoRoomId);
                 startActivity(intent);
+
                 //todo 해당 리스트로 이동
             }
         });

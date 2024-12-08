@@ -12,7 +12,6 @@ import com.wons.memotalk.R;
 import com.wons.memotalk.entity.IconId;
 import com.wons.memotalk.entity.ListIcon;
 import com.wons.memotalk.entity.MemoRoom;
-import com.wons.memotalk.util.DateUtil;
 
 public class MemoViewModel extends ViewModel {
     private MutableLiveData<MemoRoomInfo> memoRoomInfo;
@@ -30,18 +29,23 @@ public class MemoViewModel extends ViewModel {
         }
 
         MemoRoom memoRoom = Database.getDatabase(context).memoRoomDao().getMemoRoom(memoId);
+
+        String title;
         if (memoRoom == null) {
             Long lastId = Database.getDatabase(context).memoRoomDao().getMemoRoomLastPk();
             Log.i("MemoViewModel", "Memo data is null");
-            this.memoRoomInfo.getValue().fragmentsId = fragmentsId;
-            String title = context.getString(R.string.default_memo_name);
+            title = context.getString(R.string.default_memo_name);
 
             if (lastId != null) {
                 title += " " + lastId;
             }
-            this.memoRoomInfo.getValue().id = memoId;
-            this.memoRoomInfo.getValue().title = title;
+        } else {
+            title = memoRoom.title;
         }
+
+        this.memoRoomInfo.getValue().id = memoId;
+        this.memoRoomInfo.getValue().title = title;
+        this.memoRoomInfo.getValue().fragmentsId = fragmentsId;
     }
 
     @Transaction
@@ -55,7 +59,7 @@ public class MemoViewModel extends ViewModel {
         icon.listId = memoRoomId;
         icon.iconId = IconId.DEFAULT_ICON.getId();
         Database.getDatabase(context).memoRoomDao().save(icon);
-        Log.i("MemoViewmodel" ,"MemoRoom is saved memo room id is " + memoRoomId);
+        Log.i("MemoViewmodel", "MemoRoom is saved memo room id is " + memoRoomId);
         this.memoRoomInfo.getValue().id = memoRoomId;
     }
 

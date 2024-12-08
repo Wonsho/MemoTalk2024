@@ -20,7 +20,7 @@ public interface MemoRoomDao {
     MemoRoom getMemoRoom(Long id);
 
     //해당 메모 리스트 가져오기
-    @Query("SELECT * FROM memoroom WHERE id = :id ORDER BY id ")
+    @Query("SELECT * FROM memoitem WHERE memoRoomId = :id ORDER BY id ")
     List<MemoItem> getMemoItemByRoomId(Long id);
 
     @Query("SELECT * FROM MemoText WHERE memoId = :id")

@@ -40,6 +40,7 @@ public class MemoItemViewModel extends ViewModel {
 
     private void setMemoItemsToMemoDataList(Context context, ArrayList<MemoItem> items) {
         for (MemoItem item : items) {
+            //error
             switch (MemoDataType.fromTypeCode(item.valueCategory)) {
                 case TEXT: {
                     //todo 데이타베이스에서 text 정보 가져옴

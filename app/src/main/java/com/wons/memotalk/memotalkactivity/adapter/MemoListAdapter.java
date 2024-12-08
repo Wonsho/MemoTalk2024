@@ -198,6 +198,5 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.itemList = new ArrayList<>();
         }
         this.itemList = list;
-        notifyDataSetChanged();
     }
 }

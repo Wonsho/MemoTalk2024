@@ -6,7 +6,7 @@
     android:layout_gravity="right"
     android:paddingTop="10dp"
 
-    android:background="@color/memo_ground_color">
+    android:background="@color/memo_white">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/memo_base"
-            android:elevation="5dp">
+            android:elevation="1dp">
 
             <TextView
                 android:id="@+id/tv_memo"
