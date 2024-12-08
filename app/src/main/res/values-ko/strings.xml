@@ -22,13 +22,17 @@
     <string name="del_list">메모 삭제</string>
     <string name="del_tab">탭 삭제</string>
 
+    <string name="move_com">이동 되었습니다.</string>
     <string name="sort_cut">바로가기 만들기</string>
     <string name="memo_rename">이름 변경</string>
     <string name="mmemo_delete">메모 삭제</string>
-    <string name="switch_tab">탭 변경</string>
+    <string name="switch_tab">목록 변경</string>
     <string name="fix_top">상단 고정/해체</string>
     <string name="memo_lock">메모 잠그기/해체</string>
+    <string name="c_icon">아이콘 변경</string>
+    <string name="rename_notion">목록: [ - ]\n이름을 변경하실 메모방을 눌러주세요.</string>
 
+    <string name="notion">이동하고싶은 목록을 눌러주세요.</string>
     <string name="go_back">한번 더 누르면 뒤로갑니다.</string>
 
     <string name="rename">변경</string>
@@ -37,6 +41,6 @@
 
     <string name="file_img">[ 사진 ]</string>
     <string name="file_url">[ 링크 ]</string>
-    <string name="file_todo">[ 할것 목록 : * ]</string><!--*표시는 리플레이스-->
+    <string name="file_todo">[ 할것 목록 : - ]</string><!--*표시는 리플레이스-->
 
 </resources>

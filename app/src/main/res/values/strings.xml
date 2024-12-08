@@ -17,25 +17,29 @@
     <string name="memo_list_time_format">a h:mm</string> <!--아직 보류중...-->
 
     <string name="add_list">Add memo</string>
-    <string name="change_list">Rename memo</string>
+    <string name="change_list">Rename memo room</string>
     <string name="change_tab">Rename tab</string>
-    <string name="del_list">Delete memo</string>
+    <string name="del_list">Delete memo room</string>
     <string name="del_tab">Delete tab</string>
     <string name="rename">Rename</string>
 
     <string name="tab_delete_notion">Cannot delete all tabs.</string>
-
+    <string name="move_com">Moved successfully</string>
     <string name="sort_cut">Create a shortcut</string>
     <string name="memo_rename">Rename</string>
     <string name="mmemo_delete">Delete</string>
-    <string name="switch_tab">Move to tab</string>
+    <string name="switch_tab">Move to list</string>
     <string name="fix_top">Fix/Unfix to top</string>
     <string name="memo_lock">Lock/Unlock note</string>
+    <string name="c_icon">Change icon</string>
+    <string name="rename_notion">list: [ - ]\nPlease tap the memo room\nyou want to rename.</string>
+
+    <string name="notion">Choose a List to Move</string>
 
     <string name="go_back">Press again to go back.</string>
     <string name="file_img">[ Image ]</string>
     <string name="file_url">[ URL ]</string>
-    <string name="file_todo">[ TODO : * ]</string><!--*표시는 리플레이스-->
+    <string name="file_todo">[ TODO : - ]</string><!--*표시는 리플레이스-->
 
 
     <!-- TODO: Remove or change this placeholder text -->

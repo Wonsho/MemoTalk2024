@@ -6,6 +6,10 @@
     <item android:id="@+id/memo_rename"
         android:title="@string/memo_rename" />
 
+    <item android:id="@+id/memo_icon"
+        android:title="@string/c_icon" />
+
+
     <item android:id="@+id/mmemo_delete"
         android:title="@string/mmemo_delete" />
 

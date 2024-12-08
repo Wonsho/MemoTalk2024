@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/pretendard_medium"
             android:text="@string/default_memo_name"
-            android:textSize="30dp" />
+            android:textSize="25dp" />
 
         <ImageView
             android:id="@+id/btn_search"

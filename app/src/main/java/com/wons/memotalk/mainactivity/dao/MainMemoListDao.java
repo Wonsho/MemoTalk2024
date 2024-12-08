@@ -4,6 +4,7 @@ package com.wons.memotalk.mainactivity.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.wons.memotalk.entity.MemoItem;
 import com.wons.memotalk.entity.MemoRoom;
@@ -23,5 +24,8 @@ public interface MainMemoListDao {
 
     @Query("SELECT value FROM memotext WHERE memoId = :memoId ")
     String getTextValue(Long memoId);
+
+    @Update
+    void update(MemoRoom memoRoom);
 
 }

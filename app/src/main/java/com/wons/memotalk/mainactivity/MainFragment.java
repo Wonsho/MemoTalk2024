@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.room.paging.LimitOffsetPagingSource;
 
+import com.wons.memotalk.CallBack;
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.FragmentMainBinding;
+import com.wons.memotalk.util.IntentKey;
 import com.wons.memotalk.entity.memoList.MainMemoListModel;
 import com.wons.memotalk.mainactivity.adapter.MainMemoListAdapter;
 import com.wons.memotalk.memotalkactivity.MemoActivity;
@@ -27,8 +27,7 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
     private long id;
     private FragmentMainBinding binding;
-    public static final String FRAGMENTS_ID = "fragmentsId";
-    public static final String MEMO_ID = "memoId";
+
 
     public MainFragment(long position) {
         this.id = position;
@@ -43,8 +42,8 @@ public class MainFragment extends Fragment {
 
     public void addList() {
         Intent intent = new Intent(getActivity(), MemoActivity.class);
-        intent.putExtra(FRAGMENTS_ID, this.id);
-        intent.putExtra(MEMO_ID, -1L);
+        intent.putExtra(IntentKey.FRAGMENTS_ID, this.id);
+        intent.putExtra(IntentKey.MEMO_ID, -1L);
         startActivity(intent);
     }
 
@@ -62,9 +61,13 @@ public class MainFragment extends Fragment {
         }
         ArrayList<MainMemoListModel> models = ((MainActivity) getActivity()).getListModel(this.id);
         ((MainMemoListAdapter) binding.lv.getAdapter()).setList(models);
-//        ((MainMemoListAdapter) binding.lv.getAdapter()).notifyDataSetChanged();
-        // 메인액티비티 에서 데이터 가져옴
+        refreshListViewData();
     }
+
+    private void refreshListViewData() {
+        ((MainMemoListAdapter) binding.lv.getAdapter()).notifyDataSetChanged();
+    }
+
 
     private void setOnClick() {
 
@@ -74,8 +77,8 @@ public class MainFragment extends Fragment {
                 Long memoRoomId = ((MainActivity) getActivity()).getListModel(id).get(i).getMemoListItem().memoRoom.id;
                 Long tabId = ((MainActivity) getActivity()).getListModel(id).get(i).getMemoListItem().memoRoom.tabId;
                 Intent intent = new Intent(getActivity(), MemoActivity.class);
-                intent.putExtra(FRAGMENTS_ID, tabId);
-                intent.putExtra(MEMO_ID, memoRoomId);
+                intent.putExtra(IntentKey.FRAGMENTS_ID, tabId);
+                intent.putExtra(IntentKey.MEMO_ID, memoRoomId);
                 startActivity(intent);
 
                 //todo 해당 리스트로 이동
@@ -95,25 +98,39 @@ public class MainFragment extends Fragment {
                             //todo 바로가기
                         }
                         if (menuItem.getItemId() == R.id.memo_rename) {
-                            //todo 이름 바꾸기
+                            //change Memo Room Name
+                            ((MainActivity) getActivity()).changeMemoRoomName(i, id, new CallBack() {
+                                @Override
+                                public void callBack() {
+                                    refreshListViewData();
+                                }
+                            });
                         }
                         if (menuItem.getItemId() == R.id.mmemo_delete) {
                             //todo 삭제
                         }
-                        if (menuItem.getItemId() == R.id.fix_top ) {
-                            // todo 상단 고정
+                        if (menuItem.getItemId() == R.id.fix_top) {
+                            // fix to top
+                            ((MainActivity) getActivity()).itemToFix(id, i);
+                            refreshListViewData();
                         }
                         if (menuItem.getItemId() == R.id.memo_lock) {
                             //todo 메모 락
                         }
                         if (menuItem.getItemId() == R.id.switch_tab) {
                             //todo 위치 변경
+                            ((MainActivity) getActivity()).moveToList(id, i,new CallBack() {
+                                @Override
+                                public void callBack() {
+                                    refreshListViewData();
+                                }
+                            });
                         }
                         return false;
                     }
                 });
                 popupMenu.show();
-                return false;
+                return true;
             }
         });
     }
