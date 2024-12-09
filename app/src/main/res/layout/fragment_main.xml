@@ -15,7 +15,6 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_margin="5dp"
-            android:background="@color/back"
             android:src="@drawable/delete"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +25,6 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_margin="5dp"
-            android:background="@color/back"
             android:src="@drawable/addmenu"
             app:layout_constraintRight_toLeftOf="@id/btn_delete_list"
             app:layout_constraintTop_toTopOf="parent" />

@@ -8,21 +8,24 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.wons.memotalk.mainactivity.adapter.DemoCollectionAdapter;
+import com.wons.memotalk.databinding.FragmentMainBinding;
 
-public class CollectionDemoFragment extends Fragment {
+public class MainFragment extends Fragment {
+    public static final String ARG_OBJECT = "object";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return null;
-//        return inflater.inflate(bi, container, false);
+        return FragmentMainBinding.inflate(inflater).getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+//        Bundle args = getArguments();
+//        ((TextView) view.findViewById(android.R.id.text1))
+//                .setText(Integer.toString(args.getInt(ARG_OBJECT)));
     }
 }

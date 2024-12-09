@@ -4,12 +4,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.wons.memotalk.mainactivity.fragments.DemoObjectFragment;
+import com.wons.memotalk.mainactivity.fragments.MainFragment;
 
 public class DemoCollectionAdapter extends FragmentStateAdapter {
-    public DemoCollectionAdapter(Fragment fragment) {
+    public DemoCollectionAdapter(FragmentActivity fragment) {
         super(fragment);
     }
 
@@ -17,10 +18,10 @@ public class DemoCollectionAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         // Return a NEW fragment instance in createFragment(int)
-        Fragment fragment = new DemoObjectFragment();
+        Fragment fragment = new MainFragment();
         Bundle args = new Bundle();
         // Our object is just an integer :-P
-        args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
+        args.putInt(MainFragment.ARG_OBJECT, position + 1);
         fragment.setArguments(args);
         return fragment;
     }

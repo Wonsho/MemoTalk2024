@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMainBinding;
 import com.wons.memotalk.mainactivity.adapter.DemoCollectionAdapter;
-import com.wons.memotalk.mainactivity.fragments.CollectionDemoFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setViewPager();
     }
 
     private void setViewPager() {
        if(binding.pager.getAdapter() == null) {
-           binding.pager.setAdapter(new DemoCollectionAdapter(new CollectionDemoFragment()));
+           binding.pager.setAdapter(new DemoCollectionAdapter(this));
        }
     }
 

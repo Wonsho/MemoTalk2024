@@ -16,12 +16,6 @@
             android:name=".memotalkactivity.MemoActivity"
             android:exported="false" />
         <activity
-            android:name=".mainactivity.DeleteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".menuactivity.MenuActivity"
-            android:exported="false" />
-        <activity
             android:name=".mainactivity.MainActivity"
             android:exported="true">
             <intent-filter>
