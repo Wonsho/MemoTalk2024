@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainactivity.MainFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mainactivity.fragments.BlankFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:src="@drawable/addmenu"
             app:layout_constraintRight_toLeftOf="@id/btn_delete_list"
             app:layout_constraintTop_toTopOf="parent" />
-        
+
         <ListView
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -40,5 +40,4 @@
             android:layout_height="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
