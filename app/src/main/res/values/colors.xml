@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="memo_white">#F2F2F2</color>
+    <color name="memo_black">#0D0D0D</color>
+    <color name="memo_black2">#262626</color>
+    <color name="memo_middle">#8C8988</color>
+    <color name="memo_middle2">#DDDDDD</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_color">#414141</color>
-    <color name="side_color">#CC4E4E4E</color>
-    <color name="side_color2">#989898</color>
-    <color name="main_icon_color">#7A7A7A</color>
-    <color name="icon_back">#DADADA</color>
-    <color name="back">#00DADADA</color>
-    <color name="memo_ground_color">#F5F5F5</color>
-    <color name="side_black">#CC4E4E4E</color>
-    <color name="main_list_icon_color">#7A7A7A</color>
-
-
-
 </resources>
