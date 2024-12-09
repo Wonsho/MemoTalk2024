@@ -12,7 +12,6 @@ import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMemoBinding;
 
 public class MemoActivity extends AppCompatActivity {
-    private MemoViewModel viewModel;
     private ActivityMemoBinding binding;
 
     @Override
@@ -25,13 +24,5 @@ public class MemoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        if (this.viewModel == null) {
-
-        }
-
-        if (this.binding == null) {
-
-        }
     }
 }
