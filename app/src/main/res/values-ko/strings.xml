@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MemoTalk</string>
-    <string name="add_tab">탭 추가</string>
+    <string name="add_tab">목록 추가</string>
     <string name="add">추가</string>
     <string name="cancel">취소</string>
-    <string name="tab">탭</string>
-    <string name="del_list">리스트 삭제</string>
-    <string name="del_tab">탭 삭제</string>
-    <string name= "modi_tabName">탭 이름변경</string>
+    <string name="tab">목록</string>
+    <string name="del_list">메모방 삭제</string>
+    <string name="del_tab">목록 삭제</string>
+    <string name= "modi_tabName">목록 이름변경</string>
     <string name="del">삭제</string>
     <string name="select_all">전체 선택</string>
-    <string name="del_notion">삭제할 리스트를 선택해주세요.</string>
-    <string name="default_memo_name">메모</string>
+    <string name="del_notion">삭제할 메모방을 선택해주세요.</string>
+    <string name="default_memo_name">메모방</string>
     <string name="more"><u>더보기</u></string>
     <string name="click_url"><u>클릭하면 해당 URL로 이동합니다.</u></string>
 

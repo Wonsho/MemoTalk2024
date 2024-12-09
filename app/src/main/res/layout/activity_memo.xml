@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/memo_ground_color"
+    android:background="@color/memo_white"
     android:orientation="vertical"
     tools:context=".memotalkactivity.MemoActivity">
 

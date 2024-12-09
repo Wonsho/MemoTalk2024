@@ -10,15 +10,20 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMainBinding;
+import com.wons.memotalk.mainactivity.adapter.DemoCollectionAdapter;
+import com.wons.memotalk.mainactivity.fragments.CollectionDemoFragment;
 
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        if (binding == null) {
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
+        }
         setContentView(binding.getRoot());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -26,4 +31,15 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    private void setViewPager() {
+       if(binding.pager.getAdapter() == null) {
+           binding.pager.setAdapter(new DemoCollectionAdapter(new CollectionDemoFragment()));
+       }
+    }
+
+    private void setTabView() {
+
+    }
+
 }

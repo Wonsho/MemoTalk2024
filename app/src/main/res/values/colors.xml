@@ -7,4 +7,5 @@
     <color name="memo_middle2">#DDDDDD</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tool">#5F6368</color>
 </resources>
