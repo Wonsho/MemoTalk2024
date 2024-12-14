@@ -1,5 +1,7 @@
 package com.wons.memotalk.mainactivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
@@ -22,6 +24,7 @@ import com.wons.memotalk.mainactivity.adapter.DemoCollectionAdapter;
 import com.wons.memotalk.mainactivity.viewmodels.ListViewModel;
 import com.wons.memotalk.mainactivity.viewmodels.TabViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,30 +53,33 @@ public class MainActivity extends AppCompatActivity {
 
         if (tabViewModel == null) {
             tabViewModel = new ViewModelProvider(this).get(TabViewModel.class);
-            tabViewModel.dataLoad();
             tabViewModel.getTabs().observe(this, tabs -> {
-                setViewPager();
-                setTabView();
-                if (tabs.isEmpty()) {
-                    Tab tab = new Tab();
-                    tab.title = getString(R.string.tab);
-                    tabViewModel.insert(tab);
-                }
+                Toast.makeText(this, tabs.get(tabs.size()-1).title, Toast.LENGTH_SHORT).show();
+                updateTab(tabs);
             });
         }
         setTabUtilsOnCLick();
     }
 
-    private void setViewPager() {
-       if(binding.pager.getAdapter() == null) {
-           binding.pager.setAdapter(new DemoCollectionAdapter(this, tabViewModel.getTabs().getValue()));
-       }
+    private void updateTab(List<Tab> tabs) {
+
+        if (tabs == null || tabs.isEmpty()) {
+            insertDefaultTab();
+            return;
+        }
+
+
+        binding.pager.setAdapter(new DemoCollectionAdapter(this, tabs));
+
+        new TabLayoutMediator(binding.tab, binding.pager,
+                (tab, position) -> tab.setText(tabs.get(position).title)
+        ).attach();
     }
 
-    private void setTabView() {
-        new TabLayoutMediator(binding.tab, binding.pager,
-                (tab, position) -> tab.setText(tabViewModel.getTabs().getValue().get(position).title)
-        ).attach();
+    private void insertDefaultTab() {
+        Tab tab = new Tab();
+        tab.title = getString(R.string.tab);
+        tabViewModel.insert(tab);
     }
 
     private void setTabUtilsOnCLick() {
@@ -91,15 +97,15 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.btn_addTab) {
-
+                if (menuItem.getItemId() == R.id.btn_add_list) {
+                    addTab();
                 }
 
                 if (menuItem.getItemId() == R.id.btn_d_list) {
 
                 }
 
-                if (menuItem.getItemId() == R.id.btn_c_tab_name) {
+                if (menuItem.getItemId() == R.id.btn_c_list_name) {
 
                 }
                 return false;
@@ -118,6 +124,49 @@ public class MainActivity extends AppCompatActivity {
         dialog = builder.create();
 
         DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        binding1.title.setText(R.string.add_tab);
+        List<Tab> tabs = tabViewModel.getTabs().getValue();
+
+        int count = 0;
+        String title = getString(R.string.tab);
+
+        for (Tab tab : tabs) {
+            if (tab.title.length() < getString(R.string.tab).length()) {
+                continue;
+            }
+            String defaultName = tab.title.substring(0, getString(R.string.tab).length());
+            Toast.makeText(this, defaultName, Toast.LENGTH_SHORT).show();
+            if (defaultName.equals(getString(R.string.tab))){
+                count++;
+            }
+
+        }
+
+        if (count != 0) {
+            title += " " + count;
+        }
+
+        binding1.etText.setHint(title);
+        binding1.btnAddTab.setOnClickListener((view) -> {
+            Tab tab = new Tab();
+            if (!binding1.etText.getText().toString().trim().isEmpty()) {
+                //todo insert etText Text
+                tab.title = binding1.etText.getText().toString().trim();
+            } else {
+                //todo insert etText Hint
+                tab.title = binding1.etText.getHint().toString();
+            }
+            tabViewModel.insert(tab);
+            dialog.dismiss();
+        });
+
+        binding1.btnCancel.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+        dialog.setView(binding1.getRoot());
+        dialog.show();
 
     }
 

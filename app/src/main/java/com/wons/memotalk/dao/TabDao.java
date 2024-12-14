@@ -15,5 +15,6 @@ public interface TabDao {
     LiveData<List<Tab>> getAll();
 
     @Insert
-    Long insert(Tab tab);
+    void insert(Tab tab);
+
 }

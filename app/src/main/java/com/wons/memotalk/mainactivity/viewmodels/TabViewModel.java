@@ -20,14 +20,10 @@ public class TabViewModel extends AndroidViewModel {
 
     public TabViewModel(@NonNull Application application) {
         super(application);
-    }
-
-
-
-    public void dataLoad() {
-        TabDao dao = Database.getDatabase(getApplication()).tabDao();
+        TabDao dao = Database.getDatabase(application).tabDao();
         list = dao.getAll();
     }
+
 
     public LiveData<List<Tab>> getTabs() {
         return this.list;

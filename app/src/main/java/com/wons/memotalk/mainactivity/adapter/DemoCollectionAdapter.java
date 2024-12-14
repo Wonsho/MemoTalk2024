@@ -27,7 +27,7 @@ public class DemoCollectionAdapter extends FragmentStateAdapter {
         Fragment fragment = new BlankFragment();
         Bundle args = new Bundle();
         // Our object is just an integer :-P
-        args.putInt("asd", position + 1);
+        args.putLong("asd",tabs.get(position).id);
         fragment.setArguments(args);
         return fragment;
     }
