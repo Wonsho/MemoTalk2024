@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/memo_white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mainactivity.fragments.BlankFragment">
 
@@ -11,31 +12,20 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/btn_delete_list"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/delete"
+            android:layout_marginRight="16dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageButton
-            android:id="@+id/btn_add_list"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/addmenu"
-            app:layout_constraintRight_toLeftOf="@id/btn_delete_list"
+            android:background="@color/memo_white"
+            android:id="@+id/btn_memo_util"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/more_vert"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_delete_list"
+            app:layout_constraintTop_toBottomOf="@id/btn_memo_util"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 

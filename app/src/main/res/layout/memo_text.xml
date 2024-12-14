@@ -6,7 +6,7 @@
     android:layout_gravity="right"
     android:paddingTop="10dp"
 
-    android:background="@color/memo_ground_color">
+    android:background="@color/memo_white">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -52,7 +52,7 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:textColor="@color/side_black"
+                android:textColor="@color/memo_middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_medium"
@@ -92,7 +92,7 @@
                 android:paddingLeft="10dp"
                 android:paddingBottom="5dp"
                 android:text="@string/more"
-                android:textColor="#8F8F8F"
+                android:textColor="@color/memo_middle"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_memo" />
         </androidx.constraintlayout.widget.ConstraintLayout>

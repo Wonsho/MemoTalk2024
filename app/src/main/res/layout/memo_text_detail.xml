@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/memo_ground_color">
+    android:background="@color/memo_white">
 
     <ImageView
         android:layout_marginTop="10dp"
@@ -28,6 +28,7 @@
         <TextView
             android:layout_margin="10dp"
             android:textSize="20dp"
+            android:textColor="@color/memo_black"
             android:lineSpacingExtra="2dp"
             android:fontFamily="@font/pretendard_medium"
             android:text="스크롤 테스트 해야됨"

@@ -5,7 +5,7 @@
         />
 
     <solid
-        android:color="@color/icon_back"
+        android:color="@color/memo_middle2"
         />
     <size
         android:width="50dp"

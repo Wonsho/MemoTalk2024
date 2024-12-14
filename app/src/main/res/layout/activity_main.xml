@@ -72,12 +72,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/btn_addTab"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="" />
-
             <com.google.android.material.tabs.TabLayout
                 android:background="@color/white"
                 android:id="@+id/tab"
@@ -88,7 +82,8 @@
                 app:layout_constraintLeft_toRightOf="@id/btn_addTab"
                 app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
                 app:tabSelectedTextColor="@color/memo_black"
                 app:tabTextAppearance="@style/tab_text"
                 app:tabTextColor="@color/memo_black">
@@ -98,7 +93,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tab_main" />
             </com.google.android.material.tabs.TabLayout>
-
+            <ImageButton
+                android:background="@color/white"
+                android:id="@+id/btn_addTab"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/more_vert"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

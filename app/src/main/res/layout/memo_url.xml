@@ -6,7 +6,7 @@
     android:layout_gravity="right"
     android:paddingTop="10dp"
 
-    android:background="@color/memo_ground_color">
+    android:background="@color/memo_white">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -52,7 +52,7 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:textColor="@color/side_black"
+                android:textColor="@color/memo_middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_medium"
@@ -87,6 +87,8 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textColor="@color/memo_black"
+
                     android:id="@+id/tv_title"
                     android:textSize="20dp"
                     android:fontFamily="@font/pretendard_medium"
@@ -99,6 +101,8 @@
 
 
                 <TextView
+                    android:textColor="@color/memo_black"
+
                     android:id="@+id/tv_detail"
                     android:textSize="16dp"
                     android:fontFamily="@font/pretendard_medium"
@@ -111,6 +115,7 @@
 
 
                 <TextView
+                    android:textColor="@color/memo_black"
                     android:id="@+id/tv_info"
                     android:textSize="14dp"
                     android:fontFamily="@font/pretendard_medium"
@@ -125,7 +130,7 @@
                     android:paddingBottom="5dp"
                     android:id="@+id/btn_url"
                     android:textSize="14dp"
-                    android:textColor="#8F8F8F"
+                    android:textColor="@color/memo_middle"
                     android:fontFamily="@font/pretendard_medium"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
