@@ -1,9 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/btn_d_list"
-        android:title="@string/del_list" />
-    <item
         android:id="@+id/btn_d_tab"
+        android:title="@string/add_tab" />
+    <item
+        android:id="@+id/btn_d_list"
         android:title="@string/del_tab" />
+    <item
+        android:id="@+id/btn_c_tab_name"
+        android:title="@string/modi_tabName"
+        />
 </menu>
