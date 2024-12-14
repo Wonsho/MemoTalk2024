@@ -13,9 +13,11 @@ import com.wons.memotalk.mainactivity.fragments.BlankFragment;
 import java.util.List;
 
 public class DemoCollectionAdapter extends FragmentStateAdapter {
+    private List<Tab> tabs;
 
     public DemoCollectionAdapter(FragmentActivity fragment, List<Tab> tabs) {
         super(fragment);
+        this.tabs = tabs;
     }
 
     @NonNull
@@ -32,6 +34,6 @@ public class DemoCollectionAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 100;
+        return tabs.size();
     }
 }

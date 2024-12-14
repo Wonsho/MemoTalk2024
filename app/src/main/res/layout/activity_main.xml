@@ -24,7 +24,7 @@
         android:fontFamily="@font/pretendard_bold"
         android:text="@string/app_name"
         android:textColor="@color/memo_black"
-        android:textSize="30dp"
+        android:textSize="35dp"
         app:layout_constraintBottom_toTopOf="@id/g_line_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -40,17 +40,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-//        if (listViewModel == null) {
-//            listViewModel = new ViewModelProvider(this).get(ListViewModel.class);
-//        }
+        if (listViewModel == null) {
+            listViewModel = new ViewModelProvider(this).get(ListViewModel.class);
+        }
 
         if (tabViewModel == null) {
             tabViewModel = new ViewModelProvider(this).get(TabViewModel.class);
+            tabViewModel.dataLoad();
             tabViewModel.getTabs().observe(this, tabs -> {
-                setTabView(tabs);
+                setViewPager();
+                setTabView();
+                if (tabs.isEmpty()) {
+                    Tab tab = new Tab();
+                    tab.title = getString(R.string.tab);
+                    tabViewModel.insert(tab);
+                }
             });
         }
-        setViewPager();
     }
 
     private void setViewPager() {
@@ -59,10 +65,9 @@ public class MainActivity extends AppCompatActivity {
        }
     }
 
-    private void setTabView(List<Tab> tabs) {
-        Toast.makeText(this, String.valueOf(tabs), Toast.LENGTH_SHORT).show();
+    private void setTabView() {
         new TabLayoutMediator(binding.tab, binding.pager,
-                (tab, position) -> tab.setText(tabs.get(position).title)
+                (tab, position) -> tab.setText(tabViewModel.getTabs().getValue().get(position).title)
         ).attach();
     }
 
