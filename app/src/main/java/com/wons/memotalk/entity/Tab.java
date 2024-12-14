@@ -5,8 +5,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class ListInfo {
+public class Tab {
     @PrimaryKey(autoGenerate = true)
-    public long id;
-    public String tabName;
+    public Long id;
+    public String title;
+
 }

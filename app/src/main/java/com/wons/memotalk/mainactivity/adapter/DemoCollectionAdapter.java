@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.wons.memotalk.entity.Tab;
 import com.wons.memotalk.mainactivity.fragments.BlankFragment;
 
+import java.util.List;
+
 public class DemoCollectionAdapter extends FragmentStateAdapter {
-    public DemoCollectionAdapter(FragmentActivity fragment) {
+
+    public DemoCollectionAdapter(FragmentActivity fragment, List<Tab> tabs) {
         super(fragment);
     }
 

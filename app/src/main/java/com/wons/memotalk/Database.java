@@ -9,7 +9,7 @@ public class Database {
 
     public static MainDatabase getDatabase(Context context) {
         if (database == null) {
-            database = Room.databaseBuilder(context, MainDatabase.class, "main-database").build();
+            database = Room.databaseBuilder(context, MainDatabase.class, "main-database").fallbackToDestructiveMigration().build();
         }
         return database;
     }
