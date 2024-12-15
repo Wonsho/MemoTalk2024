@@ -8,14 +8,14 @@ import androidx.lifecycle.LiveData;
 
 import com.wons.memotalk.Database;
 import com.wons.memotalk.dao.TabDao;
-import com.wons.memotalk.entity.Tab;
+import com.wons.memotalk.entity.TabItem;
 
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class TabViewModel extends AndroidViewModel {
-    private LiveData<List<Tab>> list;
+    private LiveData<List<TabItem>> list;
     Executor executor = Executors.newSingleThreadExecutor();
 
     public TabViewModel(@NonNull Application application) {
@@ -25,23 +25,23 @@ public class TabViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Tab>> getTabs() {
+    public LiveData<java.util.List<TabItem>> getTabs() {
         return this.list;
     }
 
-    public void insert(Tab tab) {
+    public void insert(TabItem tabItem) {
         executor.execute(() -> {
-            Database.getDatabase(getApplication()).tabDao().insert(tab);
+            Database.getDatabase(getApplication()).tabDao().insert(tabItem);
         });
     }
 
-    public Tab getByIndex(int index) {
+    public TabItem getByIndex(int index) {
         return this.list.getValue().get(index);
     }
 
-    public void update(Tab tab) {
+    public void update(TabItem tabItem) {
         executor.execute(() -> {
-            Database.getDatabase(getApplication()).tabDao().update(tab);
+            Database.getDatabase(getApplication()).tabDao().update(tabItem);
         });
     }
 }

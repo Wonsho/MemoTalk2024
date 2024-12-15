@@ -1,9 +1,9 @@
-package com.wons.memotalk.entity;
+package com.wons.memotalk.entity.memo_data;
 
 import androidx.room.Entity;
 
 @Entity
 public class Text {
-    public Long id;
+    public Long memoId;
     public String value;
 }

@@ -6,19 +6,19 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.wons.memotalk.entity.Tab;
+import com.wons.memotalk.entity.TabItem;
 
 import java.util.List;
 
 @Dao
 public interface TabDao {
-    @Query("SELECT * FROM tab")
-    LiveData<List<Tab>> getAll();
+    @Query("SELECT * FROM TabItem")
+    LiveData<List<TabItem>> getAll();
 
     @Insert
-    void insert(Tab tab);
+    void insert(TabItem tabItem);
 
     @Update
-    void update(Tab tab);
+    void update(TabItem tabItem);
 
 }

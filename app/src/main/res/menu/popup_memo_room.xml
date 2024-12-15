@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/btn_add_memo_room"
+        android:title="@string/add_memo_room" />
+    <item
+        android:id="@+id/btn_d_memo_room"
+        android:title="@string/del_memo_room" />
+    <item
+        android:id="@+id/btn_c_memo_room"
+        android:title="@string/memo_room_rename"
+        />
+</menu>

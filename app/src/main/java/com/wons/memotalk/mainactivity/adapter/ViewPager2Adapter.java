@@ -2,25 +2,24 @@ package com.wons.memotalk.mainactivity.adapter;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.wons.memotalk.entity.Tab;
+import com.wons.memotalk.entity.TabItem;
 import com.wons.memotalk.mainactivity.fragments.MemoListFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewPager2Adapter extends FragmentStateAdapter {
-    private List<Tab> tabs;
+    public final static String KEY = "memoRoom";
+    private java.util.List<TabItem> tabItems;
 
     public ViewPager2Adapter(FragmentActivity fragment) {
         super(fragment);
-        this.tabs = new ArrayList<>();
+        this.tabItems = new ArrayList<>();
     }
 
     @NonNull
@@ -28,36 +27,33 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment fragment = new MemoListFragment();
         Bundle args = new Bundle();
-        args.putLong("asd",tabs.get(position).id);
+        args.putLong(KEY, tabItems.get(position).id);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public int getItemCount() {
-        return tabs.size();
+        return tabItems.size();
     }
 
-    public void setData(List<Tab> tabs) {
-        if (tabs.size() == this.tabs.size()) {
-            //todo 동일한 개수의 아이템
-            this.tabs = tabs;
-            notifyItemRangeChanged(0, this.tabs.size());
-            Log.i("ViewPager2Adapter", "same Size Data  : " + tabs.size());
+    public void setData(java.util.List<TabItem> tabItems) {
+        if (tabItems.size() == this.tabItems.size()) {
+            this.tabItems = tabItems;
+            notifyItemRangeChanged(0, this.tabItems.size());
+            Log.i("ViewPager2Adapter", "same Size Data  : " + tabItems.size());
         } else {
-            int dif = this.tabs.size() - tabs.size();
+            int dif = this.tabItems.size() - tabItems.size();
 
             if (dif < 0) {
-                this.tabs = tabs;
-                notifyItemInserted(this.tabs.size());
-                Log.i("ViewPager2Adapter", "add Data  : " + tabs.size());
-                //todo 추가된 데이터
+                this.tabItems = tabItems;
+                notifyItemInserted(this.tabItems.size());
+                Log.i("ViewPager2Adapter", "add Data  : " + tabItems.size());
             } else {
                 //todo 제거된 데이터
-                Log.i("ViewPager2Adapter", "del Data  : " + tabs.size());
+                Log.i("ViewPager2Adapter", "del Data  : " + tabItems.size());
 
             }
-            //todo 다르다면 작냐 크냐
         }
     }
 }

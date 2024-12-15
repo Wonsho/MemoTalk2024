@@ -74,7 +74,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:background="@color/white"
-                android:id="@+id/tab"
+                android:id="@+id/tabItem"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 app:layout_constraintLeft_toRightOf="@id/btn_addTab"
                 app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 app:tabSelectedTextColor="@color/memo_black"
                 app:tabTextAppearance="@style/tab_text"
                 app:tabTextColor="@color/memo_black">

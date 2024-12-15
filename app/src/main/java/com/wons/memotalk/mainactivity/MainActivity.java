@@ -3,6 +3,7 @@ package com.wons.memotalk.mainactivity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -19,11 +20,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMainBinding;
 import com.wons.memotalk.databinding.DialogAddTitleBinding;
-import com.wons.memotalk.entity.Tab;
+import com.wons.memotalk.entity.TabItem;
 import com.wons.memotalk.mainactivity.adapter.ViewPager2Adapter;
 import com.wons.memotalk.mainactivity.viewmodels.ListViewModel;
 import com.wons.memotalk.mainactivity.viewmodels.TabViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         setTabUtilsOnCLick();
     }
 
-    private void updateTab(List<Tab> tabs) {
+    private void updateTab(java.util.List<TabItem> tabItems) {
 
-        if (tabs == null || tabs.isEmpty()) {
+        if (tabItems == null || tabItems.isEmpty()) {
             insertDefaultTab();
             return;
         }
@@ -69,19 +71,17 @@ public class MainActivity extends AppCompatActivity {
         if (binding.pager.getAdapter() == null) {
             binding.pager.setAdapter(new ViewPager2Adapter(this));
         }
-        ((ViewPager2Adapter) binding.pager.getAdapter()).setData(tabs);
-        Toast.makeText(this, String.valueOf(binding.pager.getAdapter().getItemCount()), Toast.LENGTH_SHORT).show();
+        ((ViewPager2Adapter) binding.pager.getAdapter()).setData(tabItems);
 
-
-        new TabLayoutMediator(binding.tab, binding.pager,
+        new TabLayoutMediator(binding.tabItem, binding.pager,
                 (tab, position) -> tab.setText(tabViewModel.getTabs().getValue().get(position).title)
         ).attach();
     }
 
     private void insertDefaultTab() {
-        Tab tab = new Tab();
-        tab.title = getString(R.string.tab);
-        tabViewModel.insert(tab);
+        TabItem tabItem = new TabItem();
+        tabItem.title = getString(R.string.tabItem);
+        tabViewModel.insert(tabItem);
     }
 
     private void setTabUtilsOnCLick() {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private void showPopupMenu() {
         // PopupMenu 객체 생성
         PopupMenu popupMenu = new PopupMenu(this, binding.btnMenu);
-        popupMenu.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu()); // 메뉴 리소스 설정
+        popupMenu.getMenuInflater().inflate(R.menu.popup_list, popupMenu.getMenu()); // 메뉴 리소스 설정
 
         // 메뉴 항목 클릭 리스너 설정
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -117,20 +117,20 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
-    private void tabRename(Tab tab) {
+    private void tabRename(TabItem tabItem) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog dialog = builder.create();
         DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
         binding1.title.setText(getString(R.string.modi_tabName));
-        binding1.etText.setHint(tab.title);
+        binding1.etText.setHint(tabItem.title);
         binding1.btnAddTab.setText(getString(R.string.rename));
         binding1.btnAddTab.setOnClickListener((view) -> {
             //todo rename
             if (binding1.etText.getText().toString().trim().isEmpty()) {
                 dialog.dismiss();
             } else {
-                tab.title = binding1.etText.getText().toString().trim();
-                tabViewModel.update(tab);
+                tabItem.title = binding1.etText.getText().toString().trim();
+                tabViewModel.update(tabItem);
                 dialog.dismiss();
             }
         });
@@ -154,37 +154,41 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         binding1.title.setText(R.string.add_tab);
-        List<Tab> tabs = tabViewModel.getTabs().getValue();
 
-        int count = 0;
-        String title = getString(R.string.tab);
+        List<TabItem> tabItems = tabViewModel.getTabs().getValue();
 
-        for (Tab tab : tabs) {
-            if (tab.title.length() < getString(R.string.tab).length()) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+
+        for (int i = 1; i < 100; i++) {
+            indexes.add(i);
+        }
+
+        String title = getString(R.string.tabItem);
+
+        for (TabItem tabItem : tabItems) {
+            if (tabItem.title.length() < getString(R.string.tabItem).length()) {
                 continue;
             }
-            String defaultName = tab.title.substring(0, getString(R.string.tab).length());
-            if (defaultName.equals(getString(R.string.tab))) {
-                count++;
+
+            try {
+                Integer index = Integer.parseInt(tabItem.title.trim().substring(title.length(), tabItem.title.length()).trim());
+                indexes.remove(index);
+            } catch (Exception e) {
+                Log.i("MainActivity", "value is not integer");
             }
-
         }
-
-        if (count != 0) {
-            title += " " + count;
-        }
-
+        title += " " + indexes.get(0);
         binding1.etText.setHint(title);
         binding1.btnAddTab.setOnClickListener((view) -> {
-            Tab tab = new Tab();
+            TabItem tabItem = new TabItem();
             if (!binding1.etText.getText().toString().trim().isEmpty()) {
                 //todo insert etText Text
-                tab.title = binding1.etText.getText().toString().trim();
+                tabItem.title = binding1.etText.getText().toString().trim();
             } else {
                 //todo insert etText Hint
-                tab.title = binding1.etText.getHint().toString();
+                tabItem.title = binding1.etText.getHint().toString();
             }
-            tabViewModel.insert(tab);
+            tabViewModel.insert(tabItem);
             dialog.dismiss();
         });
 

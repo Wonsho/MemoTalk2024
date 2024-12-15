@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name" translatable="false">MemoTalk</string>
     <string name="tab_main" translatable="false">main</string>
-    <string name="add_tab" translatable="false">Add memo room</string>
+    <string name="add_tab" translatable="false">Add tabItem</string>
+
     <string name="add" translatable="false">Add</string>
     <string name="cancel" translatable="false">Cancel</string>
-    <string name="tab" translatable="false">list</string>
-    <string name="del_list">Delete memo room</string>
-    <string name="del_tab">Delete list</string>
-    <string name="modi_tabName">Rename list</string>
+    <string name="tabItem" translatable="false">tabItem</string>
+
+    <string name="add_memo_room">Add memo room</string>
+    <string name="memo_room_rename">Rename memo room</string>
+    <string name="del_memo_room">Delete memo room</string>
+
+    <string name="del_tab">Delete tabItem</string>
+    <string name="modi_tabName">Rename tabItem</string>
     <string name="select_all">Select all</string>
     <string name="del_notion">Please select the memo room to delete</string>
     <string name="del">Delete</string>
@@ -15,5 +20,7 @@
     <string name="more"><u>Read more</u></string>
     <string name="click_url"><u>Click to navigate to the URL.</u></string>
     <string name="rename">Save</string>
+    <string name="memo_list_info">There isn\'t any memo room on this tabItem.\nPlease click the menu to add.</string>
+
 
 </resources>
