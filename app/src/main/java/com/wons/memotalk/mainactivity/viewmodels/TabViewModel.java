@@ -34,4 +34,14 @@ public class TabViewModel extends AndroidViewModel {
             Database.getDatabase(getApplication()).tabDao().insert(tab);
         });
     }
+
+    public Tab getByIndex(int index) {
+        return this.list.getValue().get(index);
+    }
+
+    public void update(Tab tab) {
+        executor.execute(() -> {
+            Database.getDatabase(getApplication()).tabDao().update(tab);
+        });
+    }
 }

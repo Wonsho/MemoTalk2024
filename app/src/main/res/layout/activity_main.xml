@@ -82,7 +82,6 @@
                 app:layout_constraintLeft_toRightOf="@id/btn_addTab"
                 app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable"
-                android:layout_marginRight="5dp"
                 android:layout_marginLeft="10dp"
                 app:tabSelectedTextColor="@color/memo_black"
                 app:tabTextAppearance="@style/tab_text"

@@ -20,11 +20,10 @@ import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMainBinding;
 import com.wons.memotalk.databinding.DialogAddTitleBinding;
 import com.wons.memotalk.entity.Tab;
-import com.wons.memotalk.mainactivity.adapter.DemoCollectionAdapter;
+import com.wons.memotalk.mainactivity.adapter.ViewPager2Adapter;
 import com.wons.memotalk.mainactivity.viewmodels.ListViewModel;
 import com.wons.memotalk.mainactivity.viewmodels.TabViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         if (tabViewModel == null) {
             tabViewModel = new ViewModelProvider(this).get(TabViewModel.class);
             tabViewModel.getTabs().observe(this, tabs -> {
-                Toast.makeText(this, tabs.get(tabs.size()-1).title, Toast.LENGTH_SHORT).show();
                 updateTab(tabs);
             });
         }
@@ -68,11 +66,15 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        if (binding.pager.getAdapter() == null) {
+            binding.pager.setAdapter(new ViewPager2Adapter(this));
+        }
+        ((ViewPager2Adapter) binding.pager.getAdapter()).setData(tabs);
+        Toast.makeText(this, String.valueOf(binding.pager.getAdapter().getItemCount()), Toast.LENGTH_SHORT).show();
 
-        binding.pager.setAdapter(new DemoCollectionAdapter(this, tabs));
 
         new TabLayoutMediator(binding.tab, binding.pager,
-                (tab, position) -> tab.setText(tabs.get(position).title)
+                (tab, position) -> tab.setText(tabViewModel.getTabs().getValue().get(position).title)
         ).attach();
     }
 
@@ -102,11 +104,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (menuItem.getItemId() == R.id.btn_d_list) {
-
+                    //todo 보류
                 }
 
                 if (menuItem.getItemId() == R.id.btn_c_list_name) {
-
+                    int id = binding.pager.getCurrentItem();
+                    tabRename(tabViewModel.getByIndex(id));
                 }
                 return false;
             }
@@ -114,8 +117,31 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
-    private void tabRename() {
+    private void tabRename(Tab tab) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog = builder.create();
+        DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
+        binding1.title.setText(getString(R.string.modi_tabName));
+        binding1.etText.setHint(tab.title);
+        binding1.btnAddTab.setText(getString(R.string.rename));
+        binding1.btnAddTab.setOnClickListener((view) -> {
+            //todo rename
+            if (binding1.etText.getText().toString().trim().isEmpty()) {
+                dialog.dismiss();
+            } else {
+                tab.title = binding1.etText.getText().toString().trim();
+                tabViewModel.update(tab);
+                dialog.dismiss();
+            }
+        });
 
+        binding1.btnCancel.setOnClickListener((view) -> {
+            dialog.dismiss();
+        });
+        dialog.setView(binding1.getRoot());
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 
     private void addTab() {
@@ -126,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         DialogAddTitleBinding binding1 = DialogAddTitleBinding.inflate(getLayoutInflater());
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         binding1.title.setText(R.string.add_tab);
         List<Tab> tabs = tabViewModel.getTabs().getValue();
 
@@ -137,8 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 continue;
             }
             String defaultName = tab.title.substring(0, getString(R.string.tab).length());
-            Toast.makeText(this, defaultName, Toast.LENGTH_SHORT).show();
-            if (defaultName.equals(getString(R.string.tab))){
+            if (defaultName.equals(getString(R.string.tab))) {
                 count++;
             }
 
