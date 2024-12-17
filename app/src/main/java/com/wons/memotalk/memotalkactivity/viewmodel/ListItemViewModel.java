@@ -23,7 +23,7 @@ public class ListItemViewModel extends AndroidViewModel {
 
     public void loadData(long memoRoomId, long tabId) {
         executor.execute(() -> {
-            memoRoomData = Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(memoRoomId);
+            memoRoomData = (MutableLiveData<ListItem>) Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(memoRoomId);
 
             if (memoRoomData.getValue() == null) {
                 executor.execute(() -> {
