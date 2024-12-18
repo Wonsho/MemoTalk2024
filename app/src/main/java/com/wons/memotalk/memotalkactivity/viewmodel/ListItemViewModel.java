@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.wons.memotalk.Database;
@@ -15,38 +16,34 @@ import java.util.concurrent.Executors;
 
 public class ListItemViewModel extends AndroidViewModel {
     private Executor executor = Executors.newSingleThreadExecutor();
-    private MutableLiveData<ListItem> memoRoomData;
+    public LiveData<ListItem> memoRoomData;
+    private MutableLiveData<Long> memoRoomId;
+    private MutableLiveData<Long> tabId;
 
     public ListItemViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void loadData(long memoRoomId, long tabId) {
-        executor.execute(() -> {
-            memoRoomData = (MutableLiveData<ListItem>) Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(memoRoomId);
 
-            if (memoRoomData.getValue() == null) {
-                executor.execute(() -> {
-                    String title = getApplication().getString(R.string.default_memo_name);
-                    Long id = Database.getDatabase(getApplication()).listItemDao().getLastPk();
-                    if (id != null) {
-                        title += " " + id;
-                    }
-                    ListItem item = new ListItem();
-                    item.title = title.trim();
-                    item.listId = tabId;
-                    item.fix = false;
-                    //todo 나중에 기본 이름 추가 해야됨
-                    item.iconName = null;
-                    this.memoRoomData.setValue(item);
-                });
-            }
+        if (this.memoRoomId == null) {
+            this.memoRoomId = new MutableLiveData<>();
+            this.memoRoomId.setValue(memoRoomId);
+        }
+
+        if (this.tabId == null) {
+            this.tabId = new MutableLiveData<>();
+            this.tabId.setValue(tabId);
+        }
+
+        executor.execute(() -> {
+            memoRoomData = Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(memoRoomId);
         });
     }
 
     public String getTitle() {
-        if (this.memoRoomData.getValue() == null) {
-            return "";
+        if (this.memoRoomData == null || this.memoRoomData.getValue() == null) {
+            return getApplication().getString(R.string.default_memo_name);
         }
         return this.memoRoomData.getValue().title;
     }
