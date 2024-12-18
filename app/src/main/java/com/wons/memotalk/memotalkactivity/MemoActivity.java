@@ -8,9 +8,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.wons.memotalk.databinding.ActivityMemoBinding;
+import com.wons.memotalk.entity.memo_data.MemoData;
+import com.wons.memotalk.entity.memo_data.Text;
 import com.wons.memotalk.key.KeyValues;
+import com.wons.memotalk.memotalkactivity.adapter.MemoListAdapter;
 import com.wons.memotalk.memotalkactivity.viewmodel.ListItemViewModel;
 import com.wons.memotalk.memotalkactivity.viewmodel.MemoRoomItemViewModel;
 
@@ -44,8 +48,10 @@ public class MemoActivity extends AppCompatActivity {
         if (memoRoomItemViewModel == null) {
             memoRoomItemViewModel = new ViewModelProvider(this).get(MemoRoomItemViewModel.class);
         }
-
         setTitle();
+        setOnClickBack();
+        setView();
+        setOnClickSend();
     }
 
     private void setOnClickBack() {
@@ -62,7 +68,17 @@ public class MemoActivity extends AppCompatActivity {
     }
 
     private void setView() {
+        if (binding.lvMemo.getAdapter() == null) {
+            binding.lvMemo.setAdapter(new MemoListAdapter());
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            binding.lvMemo.setLayoutManager(linearLayoutManager);
+        }
         //todo 뷰 지정
+    }
+
+    private void updateView() {
+
     }
 
     private void setOnClickSearch() {
@@ -78,5 +94,11 @@ public class MemoActivity extends AppCompatActivity {
     }
     private void setOnClickSend() {
         //todo 보내기 버튼 눌렀을 경우
+        String value = binding.etText.getText().toString().trim();
+
+        if (!value.isEmpty()) {
+            memoRoomItemViewModel.insertText(value);
+            binding.etText.setText("");
+        }
     }
 }

@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey;
 @Entity
 public class File {
     @PrimaryKey
-    private long memoId;
+    public long memoId;
 }

@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Url {
     @PrimaryKey
-    private long memoId;
-    private String path;
+    public long memoId;
+    public String path;
 }

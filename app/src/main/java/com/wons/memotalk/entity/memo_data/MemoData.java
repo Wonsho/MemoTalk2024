@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class MemoData {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public Long id;
-    private Long memoRoomId;
+    public Long memoRoomId;
 
-    private Integer memoType;
-    private Long date;
-    private Boolean check;
-    private Boolean exclamation;
+    public Integer memoType;
+    public Long date;
+    public Boolean check;
+    public Boolean exclamation;
 }

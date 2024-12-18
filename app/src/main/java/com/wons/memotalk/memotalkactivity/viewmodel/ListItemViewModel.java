@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.wons.memotalk.Database;
 import com.wons.memotalk.R;
+import com.wons.memotalk.callback.CallBack;
 import com.wons.memotalk.entity.ListItem;
 
 import java.util.concurrent.Executor;
@@ -16,12 +17,16 @@ import java.util.concurrent.Executors;
 
 public class ListItemViewModel extends AndroidViewModel {
     private Executor executor = Executors.newSingleThreadExecutor();
-    public LiveData<ListItem> memoRoomData;
+    public MutableLiveData<ListItem> memoRoomData;
     private MutableLiveData<Long> memoRoomId;
     private MutableLiveData<Long> tabId;
 
     public ListItemViewModel(@NonNull Application application) {
         super(application);
+        this.memoRoomData = new MutableLiveData<>();
+        this.memoRoomId = new MutableLiveData<>();
+        this.tabId = new MutableLiveData<>();
+
     }
 
     public void loadData(long memoRoomId, long tabId) {
@@ -37,7 +42,7 @@ public class ListItemViewModel extends AndroidViewModel {
         }
 
         executor.execute(() -> {
-            memoRoomData = Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(memoRoomId);
+            memoRoomData.postValue(Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(memoRoomId).getValue());
         });
     }
 

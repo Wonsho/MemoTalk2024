@@ -1,24 +1,48 @@
 package com.wons.memotalk.memotalkactivity.adapter;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-//
-//public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-//    private List<MemoData> itemList;
-//
-//    public static class MemoTextViewHolder extends RecyclerView.ViewHolder {
-//        private final MemoTextBinding binding;
-//
-//        public MemoTextViewHolder(View view) {
-//            super(view);
-//            binding = MemoTextBinding.bind(view);
-//        }
-//
-//        public MemoTextBinding getBinding() {
-//            return binding;
-//        }
-//    }
-//
-//
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.wons.memotalk.databinding.MemoTextBinding;
+import com.wons.memotalk.entity.memo_data.File;
+import com.wons.memotalk.entity.memo_data.Img;
+import com.wons.memotalk.entity.memo_data.MemoData;
+import com.wons.memotalk.entity.memo_data.MemoType;
+import com.wons.memotalk.entity.memo_data.Text;
+import com.wons.memotalk.entity.memo_data.Url;
+import com.wons.memotalk.entity.memo_data.todo.TodoList;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.annotations.NonNull;
+
+public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<MemoData> itemList;
+    private List<Text> textData;
+    private List<Url> urlData;
+    private List<Img> imgData;
+    private List<File> fileData;
+    private List<TodoList> todoListData;
+
+    public static class MemoTextViewHolder extends RecyclerView.ViewHolder {
+        private final MemoTextBinding binding;
+
+        public MemoTextViewHolder(View view) {
+            super(view);
+            binding = MemoTextBinding.bind(view);
+        }
+
+        public MemoTextBinding getBinding() {
+            return binding;
+        }
+    }
+
+
 //    //todo 보류
 //    public static class MemoImageViewHolder extends RecyclerView.ViewHolder {
 //        private final MemoImgBinding binding;
@@ -76,18 +100,18 @@ package com.wons.memotalk.memotalkactivity.adapter;
 //            return binding;
 //        }
 //    }
-//
-//    // Create new views (invoked by the layout manager)
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-//        // Create a new view, which defines the UI of the list item
-//        View view = null;
-//        switch (MemoDataType.fromTypeCode(viewType)) {
-//            case TEXT: {
-//                //todo 1
-//                view = MemoTextBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false).getRoot();
-//                return new MemoTextViewHolder(view);
-//            }
+
+    // Create new views (invoked by the layout manager)
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        // Create a new view, which defines the UI of the list item
+        View view = null;
+        switch (MemoType.getType(viewType)) {
+            case TEXT: {
+                //todo 1
+                view = MemoTextBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false).getRoot();
+                return new MemoTextViewHolder(view);
+            }
 //            case URL: {
 //                //todo 3
 //                view = MemoUrlBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false).getRoot();
@@ -108,19 +132,19 @@ package com.wons.memotalk.memotalkactivity.adapter;
 //                view = MemoImgBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false).getRoot();
 //                break;
 //            }
-//        }
-//        return null;
-//    }
-//
-//    // Replace the contents of a view (invoked by the layout manager)
-//
-//    //아이템 카테고리에 따라 뷰 바인딩
-//    @Override
-//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-//        switch (MemoDataType.fromTypeCode(viewHolder.getItemViewType())) {
-//            case TEXT: {
-//                MemoTextBinding binding = ((MemoTextViewHolder) viewHolder).getBinding();
-//                MemoData data = itemList.get(position);
+        }
+        return null;
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+
+    //아이템 카테고리에 따라 뷰 바인딩
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+        switch (MemoType.getType(viewHolder.getItemViewType())) {
+            case TEXT: {
+                MemoTextBinding binding = ((MemoTextViewHolder) viewHolder).getBinding();
+                MemoData data = itemList.get(position);
 //                MemoText memoText = (MemoText) data.getItemData();
 //                binding.tvMemo.setText(memoText.value);
 //                binding.tvTime.setText(data.getDate(binding.getRoot().getContext().getString(R.string.memo_time_format)));
@@ -135,48 +159,48 @@ package com.wons.memotalk.memotalkactivity.adapter;
 //                } else {
 //                    binding.markNotion.setVisibility(View.GONE);
 //                }
-//
-//                break;
-//            }
-//            case FILE: {
-//
-//                break;
-//            }
-//            case IMAGE: {
-//
-//                break;
-//            }
-//            case TODO: {
-//
-//                break;
-//            }
-//            case URL: {
-//
-//                break;
-//            }
-//
-//            default: {
-//                //todo error
-//            }
-//        }
-//    }
 
-//    @Override
-//    public int getItemViewType(int position) {
-//        int type = this.itemList.get(position).getCategory();
-//        return type;
-//    }
-//
-//    // Return the size of your dataset (invoked by the layout manager)
-//    @Override
-//    public int getItemCount() {
-//        return itemList.size();
-//    }
-//
-//    public void setItemList(ArrayList<MemoData> list) {
-//        if (this.itemList == null) {
-//            this.itemList = new ArrayList<>();
-//        }
-//        this.itemList = list;
-//    }
-//}
+                break;
+            }
+            case FILE: {
+
+                break;
+            }
+            case IMG: {
+
+                break;
+            }
+            case TODO: {
+
+                break;
+            }
+            case URL: {
+
+                break;
+            }
+
+            default: {
+                //todo error
+            }
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        int type = this.itemList.get(position).memoType;
+        return type;
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
+
+    public void setItemList(ArrayList<MemoData> list) {
+        if (this.itemList == null) {
+            this.itemList = new ArrayList<>();
+        }
+        this.itemList = list;
+    }
+}

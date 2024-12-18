@@ -7,13 +7,20 @@ public enum MemoType {
     FILE(4),
     URL(5);
 
-    private int type;
+    private int typeCode;
 
-    MemoType(int type) {
-        this.type = type;
+    MemoType(int typeCode) {
+        this.typeCode = typeCode;
     }
 
-    public int getType() {
-        return this.type;
+    public static MemoType getType(int code) {
+        MemoType[] memoTypes = MemoType.values();
+
+        for (MemoType memoType : memoTypes) {
+            if (memoType.typeCode == code) {
+                return memoType;
+            }
+        }
+        throw new RuntimeException("type is not allow");
     }
 }
