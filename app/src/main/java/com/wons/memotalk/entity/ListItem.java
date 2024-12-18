@@ -9,7 +9,7 @@ public class ListItem {
     public long roomId;
 
     public Long listId;
-    public String iconName;
+    public int iconId;
     public String title;
     public Boolean fix;
 

@@ -47,6 +47,7 @@ public class MemoActivity extends AppCompatActivity {
 
         if (memoRoomItemViewModel == null) {
             memoRoomItemViewModel = new ViewModelProvider(this).get(MemoRoomItemViewModel.class);
+            memoRoomItemViewModel.loadData(this.listItemViewModel.getMemoRoomId());
         }
         setTitle();
         setOnClickBack();
@@ -92,13 +93,19 @@ public class MemoActivity extends AppCompatActivity {
     private void setOnClickUtils() {
         //todo util 버튼 눌렀을 경우
     }
-    private void setOnClickSend() {
-        //todo 보내기 버튼 눌렀을 경우
-        String value = binding.etText.getText().toString().trim();
 
-        if (!value.isEmpty()) {
-            memoRoomItemViewModel.insertText(value);
-            binding.etText.setText("");
-        }
+    private void setOnClickSend() {
+        binding.btnSend.setOnClickListener((view) -> {
+            String value = binding.etText.getText().toString().trim();
+            if (!value.isEmpty()) {
+                if (listItemViewModel.getMemoRoomId() == -1L) {
+                    listItemViewModel.insertMemoRoom();
+                }
+                memoRoomItemViewModel.insertText(value);
+                binding.etText.setText("");
+            }
+        });
+        //todo 보내기 버튼 눌렀을 경우
+
     }
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.wons.memotalk.Database;
 import com.wons.memotalk.R;
 import com.wons.memotalk.callback.CallBack;
+import com.wons.memotalk.entity.IconId;
 import com.wons.memotalk.entity.ListItem;
 
 import java.util.concurrent.Executor;
@@ -51,5 +52,29 @@ public class ListItemViewModel extends AndroidViewModel {
             return getApplication().getString(R.string.default_memo_name);
         }
         return this.memoRoomData.getValue().title;
+    }
+
+    public Long getMemoRoomId() {
+        if (this.memoRoomId == null || this.memoRoomId.getValue() == null) {
+            return -1L;
+        }
+        return this.memoRoomId.getValue();
+    }
+
+    public Long getListId() {
+        return this.tabId.getValue();
+    }
+
+    public void insertMemoRoom() {
+        executor.execute(() -> {
+            ListItem listItem = new ListItem();
+            Long id = Database.getDatabase(getApplication()).listItemDao().insert(listItem);
+            ListItem listItem1 = Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(id).getValue();
+            listItem1.title = getApplication().getString(R.string.default_memo_name) + " " + listItem1.roomId;
+            listItem1.iconId = IconId.DEFAULT_ICON.getId();
+            listItem1.fix = false;
+            listItem1.listId = this.tabId.getValue();
+
+        });
     }
 }

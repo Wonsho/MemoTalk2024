@@ -2,7 +2,7 @@ package com.wons.memotalk.entity;
 
 import com.wons.memotalk.R;
 
-enum IconId {
+public enum IconId {
     DEFAULT_ICON(R.drawable.default_icon),
     ICON_1(R.drawable.account_circle_icon),
     ICON_2(R.drawable.book_icon),

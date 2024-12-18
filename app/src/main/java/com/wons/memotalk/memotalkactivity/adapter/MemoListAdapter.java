@@ -22,7 +22,7 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 
 public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<MemoData> itemList;
+    private List<MemoData> itemList = new ArrayList<>();
     private List<Text> textData;
     private List<Url> urlData;
     private List<Img> imgData;

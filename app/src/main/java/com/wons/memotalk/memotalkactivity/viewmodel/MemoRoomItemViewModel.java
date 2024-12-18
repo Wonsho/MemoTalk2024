@@ -51,7 +51,7 @@ public class MemoRoomItemViewModel extends AndroidViewModel {
         });
     }
 
-    public void loadChildData() {
+    private void loadChildData() {
         ArrayList<Long> textId = new ArrayList<>();
         ArrayList<Long> urlId = new ArrayList<>();
         ArrayList<Long> imgId = new ArrayList<>();
