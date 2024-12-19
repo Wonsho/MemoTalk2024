@@ -9,20 +9,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.wons.memotalk.R;
 import com.wons.memotalk.databinding.ActivityMemoBinding;
-import com.wons.memotalk.entity.memo_data.MemoData;
-import com.wons.memotalk.entity.memo_data.Text;
+import com.wons.memotalk.entity.ListItem;
 import com.wons.memotalk.key.KeyValues;
-import com.wons.memotalk.memotalkactivity.adapter.MemoListAdapter;
 import com.wons.memotalk.memotalkactivity.viewmodel.ListItemViewModel;
-import com.wons.memotalk.memotalkactivity.viewmodel.MemoRoomItemViewModel;
+
+import javax.crypto.KeyAgreement;
 
 public class MemoActivity extends AppCompatActivity {
     private ActivityMemoBinding binding;
     private ListItemViewModel listItemViewModel;
-    private MemoRoomItemViewModel memoRoomItemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,92 +38,59 @@ public class MemoActivity extends AppCompatActivity {
 
         if (listItemViewModel == null) {
             listItemViewModel = new ViewModelProvider(this).get(ListItemViewModel.class);
-            long roomId = getIntent().getLongExtra(KeyValues.MEMO_ROOM_ID, -1L);
-            long tabId = getIntent().getLongExtra(KeyValues.LIST_ID, -1L);
-
             listItemViewModel.memoRoomId.observe(this, id -> {
-                //todo 리스트 아이템 불러오기
-                listItemViewModel.loadMemoRoom(id);
+                Toast.makeText(getApplication(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+                listItemViewModel.loadListItem(this, id);
+                //todo 새로운값 들어옴
             });
 
-            listItemViewModel.memoRoomData.observe(this, item -> {
-                Toast.makeText(this, String.valueOf(item.roomId), Toast.LENGTH_SHORT).show();
+            listItemViewModel.listItemViewModelLiveData.observe(this, item -> {
+                if (item == null) {
+                    return;
+                }
+
+                if (item.title == null) {
+                    //todo update
+                    item.title = getString(R.string.default_memo_name) + " " + item.roomId;
+                    Toast.makeText(this, "title is null" , Toast.LENGTH_SHORT).show();
+                    listItemViewModel.update(item, this);
+                    return;
+                }
+                Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show();
                 setTitle();
             });
 
-            if (roomId != -1L) {
-                listItemViewModel.setRoomId(roomId);
-            }
-
-            if (tabId != -1L) {
-                listItemViewModel.setTabId(tabId);
-            }
+            long memoRoomId = getIntent().getLongExtra(KeyValues.MEMO_ROOM_ID, -1L);
+            long tabId = getIntent().getLongExtra(KeyValues.LIST_ID, -1L);
+            listItemViewModel.setTabId(tabId);
+            listItemViewModel.setMemoRoomId(memoRoomId);
         }
 
-        if (memoRoomItemViewModel == null) {
-            memoRoomItemViewModel = new ViewModelProvider(this).get(MemoRoomItemViewModel.class);
-
-            memoRoomItemViewModel.memoDataLiveData.observe(this, memoData -> {
-                updateView();
-            });
-        }
-        setTitle();
-        setOnClickBack();
-        setView();
         setOnClickSend();
     }
 
-    private void setOnClickBack() {
-        //todo back 버튼 눌렀을 경우 3초 알림 띄우기
-        binding.btnBack.setOnClickListener((view) -> {
-            finish();
-            //todo 나중에 수정
-        });
-    }
-
     private void setTitle() {
-        binding.tvTitle.setText(listItemViewModel.getTitle());
-    }
+        String title = listItemViewModel.getTitle();
 
-    private void setView() {
-        if (binding.lvMemo.getAdapter() == null) {
-            binding.lvMemo.setAdapter(new MemoListAdapter());
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            binding.lvMemo.setLayoutManager(linearLayoutManager);
+        if (title == null) {
+            title = getString(R.string.default_memo_name);
         }
-        //todo 뷰 지정
-    }
-
-    private void updateView() {
-
-    }
-
-    private void setOnClickSearch() {
-        //todo 검색 버튼 눌렀을경우 택스트 검색 가능
-    }
-
-    private void setOnClickMenu() {
-        //todo 메뉴 버튼 눌렀을 경우
-    }
-
-    private void setOnClickUtils() {
-        //todo util 버튼 눌렀을 경우
+        binding.tvTitle.setText(title);
     }
 
     private void setOnClickSend() {
         binding.btnSend.setOnClickListener((view) -> {
             String value = binding.etText.getText().toString().trim();
+
             if (!value.isEmpty()) {
-                if (listItemViewModel.getMemoRoomId() == -1L) {
-                    listItemViewModel.insertMemoRoom();
+                if (listItemViewModel.isFist()) {
+                    //todo 첫데이터
+                    listItemViewModel.insert(new ListItem(), this);
+                } else {
+                    //todo 첫데이터 아님
                 }
-
-                memoRoomItemViewModel.insertText(value);
-                binding.etText.setText("");
             }
+            binding.etText.setText("");
         });
-        //todo 보내기 버튼 눌렀을 경우
-
     }
 }

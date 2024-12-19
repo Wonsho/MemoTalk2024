@@ -1,77 +1,78 @@
 package com.wons.memotalk.memotalkactivity.viewmodel;
 
-import android.app.Application;
-import android.provider.ContactsContract;
+import android.content.Context;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.paging.ItemSnapshotList;
 
 import com.wons.memotalk.Database;
-import com.wons.memotalk.R;
-import com.wons.memotalk.callback.CallBack;
 import com.wons.memotalk.entity.IconId;
 import com.wons.memotalk.entity.ListItem;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class ListItemViewModel extends AndroidViewModel {
-    private Executor executor = Executors.newSingleThreadExecutor();
-    public MutableLiveData<ListItem> memoRoomData;
+public class ListItemViewModel extends ViewModel {
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    public MutableLiveData<ListItem> listItemViewModelLiveData;
     public MutableLiveData<Long> memoRoomId;
     public MutableLiveData<Long> tabId;
 
-    public ListItemViewModel(@NonNull Application application) {
-        super(application);
-        this.memoRoomData = new MutableLiveData<>();
+    ListItemViewModel() {
+        this.listItemViewModelLiveData = new MutableLiveData<>();
         this.memoRoomId = new MutableLiveData<>();
         this.tabId = new MutableLiveData<>();
     }
 
+    public void setMemoRoomId(Long id) {
+        this.memoRoomId.postValue(id);
+    }
+
+    public void setTabId(Long id) {
+        this.tabId.postValue(id);
+    }
+
     public String getTitle() {
-        if (this.memoRoomData.getValue() == null) {
-            return getApplication().getString(R.string.default_memo_name);
+        if (listItemViewModelLiveData.getValue() == null) {
+            return null;
         } else {
-            return this.memoRoomData.getValue().title;
+            return listItemViewModelLiveData.getValue().title;
         }
     }
 
-    public void setRoomId(long id) {
-        this.memoRoomId.setValue(id);
-    }
-
-    public void setTabId(long id) {
-        this.tabId.setValue(id);
-    }
-
-    public void insertMemoRoom() {
+    public void update(ListItem listItem, Context context) {
         executor.execute(() -> {
-            ListItem item = new ListItem();
-            this.memoRoomId.postValue(Database.getDatabase(getApplication()).listItemDao().insert(item));
+            Database.getDatabase(context).listItemDao().update(listItem);
+            this.listItemViewModelLiveData.postValue(listItem);
         });
     }
 
-    public void loadMemoRoom(long id) {
-        executor.execute(() -> {
-            ListItem item = Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(id);
-            if (item.title == null || item.title.isEmpty()) {
-                item.title = getApplication().getString(R.string.default_memo_name) + " " + id;
-                item.fix = false;
-                item.iconId = IconId.DEFAULT_ICON.getId();
-                item.listId = this.tabId.getValue();
-                Database.getDatabase(getApplication()).listItemDao().update(item);
-            }
-            this.memoRoomData.postValue(Database.getDatabase(getApplication()).listItemDao().getListItemByRoomId(id));
-        });
-    }
-
-    public long getMemoRoomId() {
-        if (this.memoRoomId == null || this.memoRoomId.getValue() == null) {
-            return -1L;
+    public boolean isFist() {
+        if (listItemViewModelLiveData.getValue() == null) {
+            return true;
         } else {
-            return this.memoRoomId.getValue();
+            return false;
         }
+    }
+
+    public void insert(ListItem listItem, Context context) {
+        listItem.title = null;
+        listItem.fix = false;
+        listItem.listId = this.tabId.getValue();
+        listItem.iconId = IconId.DEFAULT_ICON.getId();
+        executor.execute(() -> {
+            Long id = Database.getDatabase(context).listItemDao().insert(listItem);
+            memoRoomId.postValue(id);
+        });
+    }
+
+    public void loadListItem(Context context, Long id) {
+        executor.execute(() -> {
+            ListItem item = Database.getDatabase(context).listItemDao().getListItemByRoomId(id);
+            this.listItemViewModelLiveData.postValue(item);
+        });
     }
 }
+

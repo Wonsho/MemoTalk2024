@@ -23,4 +23,8 @@ public enum MemoType {
         }
         throw new RuntimeException("type is not allow");
     }
+
+    public int getCode() {
+        return this.typeCode;
+    }
 }

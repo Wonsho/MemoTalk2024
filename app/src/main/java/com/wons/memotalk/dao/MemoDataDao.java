@@ -2,6 +2,7 @@ package com.wons.memotalk.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -32,4 +33,7 @@ public interface MemoDataDao {
     @Transaction
     @Query("SELECT * FROM todo WHERE memoId = (:ids)")
     List<TodoList> getAllTodoById(List<Long> ids);
+
+    @Insert
+    Long insert(MemoData memoData);
 }

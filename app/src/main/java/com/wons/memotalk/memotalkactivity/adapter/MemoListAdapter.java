@@ -29,6 +29,24 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<File> fileData;
     private List<TodoList> todoListData;
 
+    public void setData(List<MemoData> memoData, List<Text> textData, List<Url> urlData, List<Img> imgData, List<File> fileData, List<TodoList> todoListData
+    ) {
+        if (memoData == null || memoData.size() == 0) {
+            this.textData = new ArrayList<>();
+            this.urlData = new ArrayList<>();
+            this.imgData = new ArrayList<>();
+            this.fileData = new ArrayList<>();
+            this.todoListData = new ArrayList<>();
+        } else {
+            this.itemList = itemList;
+            this.textData = textData;
+            this.urlData = urlData;
+            this.imgData = imgData;
+            this.fileData = fileData;
+            this.todoListData = todoListData; 
+        }
+    }
+
     public static class MemoTextViewHolder extends RecyclerView.ViewHolder {
         private final MemoTextBinding binding;
 
@@ -195,12 +213,5 @@ public class MemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return itemList.size();
-    }
-
-    public void setItemList(ArrayList<MemoData> list) {
-        if (this.itemList == null) {
-            this.itemList = new ArrayList<>();
-        }
-        this.itemList = list;
     }
 }
