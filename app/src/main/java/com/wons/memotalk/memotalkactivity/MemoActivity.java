@@ -1,6 +1,7 @@
 package com.wons.memotalk.memotalkactivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,21 +40,38 @@ public class MemoActivity extends AppCompatActivity {
 
         if (listItemViewModel == null) {
             listItemViewModel = new ViewModelProvider(this).get(ListItemViewModel.class);
-            listItemViewModel.loadData(getIntent().getLongExtra(KeyValues.MEMO_ROOM_ID, -1L), getIntent().getLongExtra(KeyValues.LIST_ID, -1L));
-            listItemViewModel.memoRoomData.observe(this, listItem -> {
+            long roomId = getIntent().getLongExtra(KeyValues.MEMO_ROOM_ID, -1L);
+            long tabId = getIntent().getLongExtra(KeyValues.LIST_ID, -1L);
+
+            listItemViewModel.memoRoomId.observe(this, id -> {
+                //todo 리스트 아이템 불러오기
+                listItemViewModel.loadMemoRoom(id);
+            });
+
+            listItemViewModel.memoRoomData.observe(this, item -> {
+                Toast.makeText(this, String.valueOf(item.roomId), Toast.LENGTH_SHORT).show();
                 setTitle();
             });
+
+            if (roomId != -1L) {
+                listItemViewModel.setRoomId(roomId);
+            }
+
+            if (tabId != -1L) {
+                listItemViewModel.setTabId(tabId);
+            }
         }
 
         if (memoRoomItemViewModel == null) {
             memoRoomItemViewModel = new ViewModelProvider(this).get(MemoRoomItemViewModel.class);
-            memoRoomItemViewModel.loadData(this.listItemViewModel.getMemoRoomId());
         }
         setTitle();
         setOnClickBack();
-        setView();
+//        setView();
         setOnClickSend();
     }
+
+
 
     private void setOnClickBack() {
         //todo back 버튼 눌렀을 경우 3초 알림 띄우기
@@ -65,7 +83,6 @@ public class MemoActivity extends AppCompatActivity {
 
     private void setTitle() {
         binding.tvTitle.setText(listItemViewModel.getTitle());
-        //todo 타이틀 지정
     }
 
     private void setView() {

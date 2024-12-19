@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface ListItemDao {
     @Query("SELECT * FROM listitem WHERE roomId = :roomId")
-    LiveData<ListItem> getListItemByRoomId(long roomId);
+   ListItem getListItemByRoomId(Long roomId);
 
     @Query("SELECT roomId FROM listitem ORDER BY roomId DESC LIMIT 1")
     Long getLastPk();
