@@ -20,13 +20,14 @@ import com.wons.memotalk.entity.memo_data.Url;
 import com.wons.memotalk.entity.memo_data.todo.TodoList;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class MemoRoomItemViewModel extends AndroidViewModel {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private MutableLiveData<List<MemoData>> memoDataLiveData;
+    public MutableLiveData<List<MemoData>> memoDataLiveData;
     private MutableLiveData<List<Text>> textLiveData;
     private MutableLiveData<List<Url>> urlLiveData;
     private MutableLiveData<List<Img>> imgLiveData;
@@ -45,6 +46,10 @@ public class MemoRoomItemViewModel extends AndroidViewModel {
     }
 
     public void loadData(long roomId) {
+        if (roomId == -1) {
+            return;
+        }
+
         executor.execute(() -> {
             memoDataLiveData.postValue(Database.getDatabase(getApplication()).memoDataDao().getAllById(roomId).getValue());
             loadChildData();
@@ -67,7 +72,7 @@ public class MemoRoomItemViewModel extends AndroidViewModel {
 
             executor.execute(() -> {
                 MemoDataDao dao = Database.getDatabase(getApplication()).memoDataDao();
-                textLiveData.postValue(dao.getAllTextById(textId).getValue());
+                textLiveData.postValue(dao.getAllTextById(textId));
             });
             return;
         }
@@ -103,23 +108,34 @@ public class MemoRoomItemViewModel extends AndroidViewModel {
         }
         executor.execute(() -> {
             MemoDataDao dao = Database.getDatabase(getApplication()).memoDataDao();
-            textLiveData.postValue(dao.getAllTextById(textId).getValue());
+            textLiveData.postValue(dao.getAllTextById(textId));
         });
     }
 
+    @Transaction
     public void insertText(String text) {
+        executor.execute(() -> {
+            MemoData memoData = new MemoData();
+            memoData.exclamation = false;
+            memoData.check = false;
+            memoData.date = System.currentTimeMillis();
 
+
+        });
     }
 
     public void insertUrl() {
 
     }
+
     public void insertFile() {
 
     }
+
     public void insertTodo() {
 
     }
+
     public void insertImg() {
 
     }

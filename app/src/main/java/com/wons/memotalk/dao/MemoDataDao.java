@@ -18,18 +18,18 @@ public interface MemoDataDao {
     LiveData<List<MemoData>> getAllById(Long roomId);
 
     @Query("SELECT * FROM text WHERE memoId = (:ids)")
-    LiveData<List<Text>> getAllTextById(List<Long> ids);
+    List<Text> getAllTextById(List<Long> ids);
 
     @Query("SELECT * FROM img WHERE memoId = (:ids)")
-    LiveData<List<Text>> getAllUrlById(List<Long> ids);
+    List<Text> getAllUrlById(List<Long> ids);
 
     @Query("SELECT * FROM file WHERE memoId = (:ids)")
-    LiveData<List<Text>> getAllFileById(List<Long> ids);
+    List<Text> getAllFileById(List<Long> ids);
 
     @Query("SELECT * FROM url WHERE memoId = (:ids)")
-    LiveData<List<Text>> getAllImgById(List<Long> ids);
+    List<Text> getAllImgById(List<Long> ids);
 
     @Transaction
     @Query("SELECT * FROM todo WHERE memoId = (:ids)")
-    LiveData<List<TodoList>> getAllTodoById(List<Long> ids);
+    List<TodoList> getAllTodoById(List<Long> ids);
 }

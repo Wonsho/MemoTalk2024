@@ -64,14 +64,16 @@ public class MemoActivity extends AppCompatActivity {
 
         if (memoRoomItemViewModel == null) {
             memoRoomItemViewModel = new ViewModelProvider(this).get(MemoRoomItemViewModel.class);
+
+            memoRoomItemViewModel.memoDataLiveData.observe(this, memoData -> {
+                updateView();
+            });
         }
         setTitle();
         setOnClickBack();
-//        setView();
+        setView();
         setOnClickSend();
     }
-
-
 
     private void setOnClickBack() {
         //todo back 버튼 눌렀을 경우 3초 알림 띄우기
@@ -118,6 +120,7 @@ public class MemoActivity extends AppCompatActivity {
                 if (listItemViewModel.getMemoRoomId() == -1L) {
                     listItemViewModel.insertMemoRoom();
                 }
+
                 memoRoomItemViewModel.insertText(value);
                 binding.etText.setText("");
             }
