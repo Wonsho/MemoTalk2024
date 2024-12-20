@@ -14,11 +14,12 @@ import java.util.List;
 
 @Dao
 public interface ListItemDao {
+
     @Query("SELECT * FROM listitem WHERE roomId = :roomId")
     ListItem getListItemByRoomId(Long roomId);
 
-    @Query("SELECT roomId FROM listitem ORDER BY roomId DESC LIMIT 1")
-    Long getLastPk();
+    @Query("SELECT CAST(SUBSTR(title, LENGTH(:keyword) + 2) AS INTEGER) FROM listitem WHERE title LIKE :keyword || ' %' AND CAST(SUBSTR(title, LENGTH(:keyword) + 2) AS INTEGER) > 0")
+    List<Integer> getMemosWithKeyword(String keyword);
 
     @Insert
     Long insert(ListItem listItem);

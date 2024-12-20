@@ -15,12 +15,13 @@ import com.wons.memotalk.databinding.ActivityMemoBinding;
 import com.wons.memotalk.entity.ListItem;
 import com.wons.memotalk.key.KeyValues;
 import com.wons.memotalk.memotalkactivity.viewmodel.ListItemViewModel;
-
-import javax.crypto.KeyAgreement;
+import com.wons.memotalk.memotalkactivity.viewmodel.MemoDataViewModel;
 
 public class MemoActivity extends AppCompatActivity {
     private ActivityMemoBinding binding;
     private ListItemViewModel listItemViewModel;
+    private MemoDataViewModel memoDataViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,59 +39,33 @@ public class MemoActivity extends AppCompatActivity {
 
         if (listItemViewModel == null) {
             listItemViewModel = new ViewModelProvider(this).get(ListItemViewModel.class);
-            listItemViewModel.memoRoomId.observe(this, id -> {
-                Toast.makeText(getApplication(), String.valueOf(id), Toast.LENGTH_SHORT).show();
-                listItemViewModel.loadListItem(this, id);
-                //todo 새로운값 들어옴
-            });
-
             listItemViewModel.listItemViewModelLiveData.observe(this, item -> {
-                if (item == null) {
-                    return;
-                }
-
-                if (item.title == null) {
-                    //todo update
-                    item.title = getString(R.string.default_memo_name) + " " + item.roomId;
-                    Toast.makeText(this, "title is null" , Toast.LENGTH_SHORT).show();
-                    listItemViewModel.update(item, this);
-                    return;
-                }
-                Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show();
+                //todo setTitle, and load MemoData
                 setTitle();
+                Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show();
+
             });
 
-            long memoRoomId = getIntent().getLongExtra(KeyValues.MEMO_ROOM_ID, -1L);
-            long tabId = getIntent().getLongExtra(KeyValues.LIST_ID, -1L);
-            listItemViewModel.setTabId(tabId);
-            listItemViewModel.setMemoRoomId(memoRoomId);
-        }
+            listItemViewModel.memoRoomId.observe(this, id -> {
+                //todo 해당 데이터 로드
+                // if == -1 이면 insertMemo
+                if (id == -1L) {
+                    listItemViewModel.insertMemoRoom(this);
+                } else {
+                    //로드 리스트 아이템뷰 모델
+                    listItemViewModel.loadMemoRoom(this, id);
+                }
 
-        setOnClickSend();
+            });
+
+            long roomId = getIntent().getLongExtra(KeyValues.MEMO_ROOM_ID, -1L);
+            long tabId = getIntent().getLongExtra(KeyValues.LIST_ID, -1L);
+            listItemViewModel.setMemoRoomId(roomId);
+            listItemViewModel.setTabId(tabId);
+        }
     }
 
     private void setTitle() {
-        String title = listItemViewModel.getTitle();
-
-        if (title == null) {
-            title = getString(R.string.default_memo_name);
-        }
-        binding.tvTitle.setText(title);
-    }
-
-    private void setOnClickSend() {
-        binding.btnSend.setOnClickListener((view) -> {
-            String value = binding.etText.getText().toString().trim();
-
-            if (!value.isEmpty()) {
-                if (listItemViewModel.isFist()) {
-                    //todo 첫데이터
-                    listItemViewModel.insert(new ListItem(), this);
-                } else {
-                    //todo 첫데이터 아님
-                }
-            }
-            binding.etText.setText("");
-        });
+        binding.tvTitle.setText(listItemViewModel.getTitle());
     }
 }

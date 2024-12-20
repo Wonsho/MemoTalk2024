@@ -28,5 +28,12 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class MemoDataViewModel extends ViewModel {
+    public MutableLiveData<List<MemoData>> memoDataMutableLiveData;
+    public MutableLiveData<List<Text>> textData;
+    public MutableLiveData<List<TodoList>> todoData;
+
+    public MemoDataViewModel() {
+        this.memoDataMutableLiveData = new MutableLiveData<>();
+    }
 
 }
